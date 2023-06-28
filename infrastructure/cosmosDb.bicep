@@ -8,7 +8,7 @@ param region string = resourceGroup().location
 param primaryRegion string = resourceGroup().location
 
 @description('The secondary region for the Azure Cosmos DB account.')
-param secondaryRegion string = 'westeurope'
+param secondaryRegion string = 'swedencentral'
 
 @allowed([
   'Eventual'
@@ -32,14 +32,6 @@ param serverVersion string = '4.2'
 
 var maxStalenessPrefix = 100000
 var maxIntervalInSeconds = 300
-var throughput = 1000
-
-@description('The name for the database')
-param databaseName string = 'explore'
-
-@description('The name for the collection')
-param collectionName string = 'myCollection'
-
 
 var consistencyPolicy = {
   Eventual: {
@@ -91,39 +83,5 @@ resource account 'Microsoft.DocumentDB/databaseAccounts@2022-05-15' = {
         name: 'DisableRateLimitingResponses'
       }
     ]
-  }
-}
-
-resource database 'Microsoft.DocumentDB/databaseAccounts/mongodbDatabases@2022-05-15' = {
-  parent: account
-  name: databaseName
-  properties: {
-    resource: {
-      id: databaseName
-    }
-    options: {
-      autoscaleSettings: {
-        maxThroughput: throughput
-      }
-    }
-  }
-}
-
-resource collection 'Microsoft.DocumentDb/databaseAccounts/mongodbDatabases/collections@2022-05-15' = {
-  parent: database
-  name: collectionName
-  properties: {
-    resource: {
-      id: collectionName
-      indexes: [
-        {
-          key: {
-            keys: [
-              '_id'
-            ]
-          }
-        }
-      ]
-    }
   }
 }

@@ -3,15 +3,11 @@
 	"contentVersion": "1.0.0.0",
 	"parameters": {
 		"appName": {
-			"value": "ExploreRestaurant"
-		},
-		
-		"dbCollectionName": {
-			"value": "employees"
+			"value": "IteraProject"
 		},
 
         "stAccountName": {
-            "value": "exploreitera"
+            "value": "iteraproject"
         },
 
 		"environment":{

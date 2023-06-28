@@ -1,11 +1,11 @@
-@description('The mane of the app')
+@description('The name of the app')
 param appName string
 
 @description('Environment to deploy to.')
 param environment string
 
-@description('Name of the container to create in the storage account.')
-param dbCollectionName string
+@description('Name of the storage account to create.')
+param stAccountName string
 
 @description('Location for all resources.')
 param region string = resourceGroup().location
@@ -17,17 +17,14 @@ param instance string = '001'
 param swaRegion string = 'westeurope'
 
 @description('Location for the Cosmos DB.')
-param cosmosRegion string = 'swedencentral'
-
-@description('Name of the storage account to create.')
-param stAccountName string = 'explore'
+param cosmosRegion string = 'westeurope'
 
 
 var funcAppName = 'func-${appName}-${environment}-${region}-${instance}' 
 var swaName = 'stapp-${appName}-${environment}-${region}-${instance}'
-var hostingPlanName = 'asp-explore-${environment}-${region}-${instance}'
-var applicationInsightsName = 'appi-explore-${environment}-${region}-${instance}'
-var cosmosDbName = 'cosmos-explore-${environment}-${cosmosRegion}-${instance}'
+var hostingPlanName = 'asp-project-${environment}-${region}-${instance}'
+var applicationInsightsName = 'appi-project-${environment}-${region}-${instance}'
+var cosmosDbName = 'cosmos-project-${environment}-${cosmosRegion}-${instance}'
 var storageAccountName = toLower('st${stAccountName}${instance}')
 
 module storageAccount 'storageAccount.bicep' = {
@@ -45,7 +42,6 @@ module cosmosDb 'cosmosDb.bicep' = {
     name: cosmosDbName
     region: cosmosRegion
     primaryRegion: cosmosRegion
-    collectionName: dbCollectionName
   }
 }
 

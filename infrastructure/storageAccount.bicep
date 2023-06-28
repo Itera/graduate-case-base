@@ -41,7 +41,7 @@ resource imagesContainer 'Microsoft.Storage/storageAccounts/blobServices/contain
   name: 'images'
   parent: blobService
   properties: {
-    publicAccess: 'None'
+    publicAccess: 'Blob'
     metadata: {}
   }
 }
