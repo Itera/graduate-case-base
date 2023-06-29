@@ -47,7 +47,6 @@ runs:
         resourceGroupName: ${{ inputs.resource_group }}
         template: ${{ inputs.template_file }}
         parameters: ${{ inputs.parameter_file }}
-          projectName="explore"
         failOnStdErr: true
         scope: "resourcegroup"
         deploymentMode: ${{ inputs.deploy == 'true' && 'Complete' || 'Validate' }}
