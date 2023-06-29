@@ -19,12 +19,14 @@ param swaRegion string = 'westeurope'
 @description('Location for the Cosmos DB.')
 param cosmosRegion string = 'westeurope'
 
+@description('Name of the project.')
+param projectName string = 'project'
 
 var funcAppName = 'func-${appName}-${environment}-${region}-${instance}' 
 var swaName = 'stapp-${appName}-${environment}-${region}-${instance}'
-var hostingPlanName = 'asp-project-${environment}-${region}-${instance}'
-var applicationInsightsName = 'appi-project-${environment}-${region}-${instance}'
-var cosmosDbName = 'cosmos-project-${environment}-${cosmosRegion}-${instance}'
+var hostingPlanName = 'asp-${projectName}-${environment}-${region}-${instance}'
+var applicationInsightsName = 'appi-${projectName}-${environment}-${region}-${instance}'
+var cosmosDbName = 'cosmos-${projectName}-${environment}-${cosmosRegion}-${instance}'
 var storageAccountName = toLower('st${stAccountName}${instance}')
 
 module storageAccount 'storageAccount.bicep' = {

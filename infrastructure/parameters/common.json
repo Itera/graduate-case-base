@@ -12,6 +12,10 @@
 
 		"environment":{
 			"value": "dev"
+		},
+
+		"projectName":{
+			"value": "project"
 		}
 	}
 }
