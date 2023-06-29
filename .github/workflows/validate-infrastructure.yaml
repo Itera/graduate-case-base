@@ -28,11 +28,8 @@ jobs:
         uses: ./.github/actions/infrastructure
         with:
           deploy: false
-          environment: dev
-          web_app_location: ${{ env.WEB_APP_LOCATION }}
-          web_app_artifact_location: ${{ env.WEB_APP_ARTIFACT_LOCATION }}
-          infrastructure_template_location: ${{ env.INFRASTRUCTURE_TEMPLATE_LOCATION }}
-          infrastructure_parameter_location: ${{ env.INFRASTRUCTURE_PARAMETER_LOCATION }}
-          azure_credentials: ${{ secrets.AZURE_CREDENTIALS }}
           resource_group: ${{ secrets.AZURE_RG }}
           subscription_id: ${{ secrets.AZURE_SUBSCRIPTION }}
+          parameter_file: ${{ env.INFRASTRUCTURE_PARAMETER_LOCATION }}
+          environment: dev
+          template_file: ${{ env.INFRASTRUCTURE_TEMPLATE_LOCATION }}
