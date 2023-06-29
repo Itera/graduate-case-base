@@ -50,4 +50,4 @@ runs:
           projectName="explore"
         failOnStdErr: true
         scope: "resourcegroup"
-        deploymentMode: ${{ inputs.deploy && 'Complete' || 'Verify' }}
+        deploymentMode: ${{ inputs.deploy == 'true' && 'Complete' || 'Verify' }}
