@@ -2,32 +2,23 @@ name: Deploy web app
 description: Deploy the infrastructure, web app and api to Azure
 
 inputs:
-  environment:
-    required: true
-    description: 'The environment to deploy to'
   web_app_location:
     required: true
     description: 'The location of the web app'
   web_app_artifact_location:
     required: true
     description: 'The location of the web app artifact, relative to the web app location'
-  infrastructure_template_location:
-    required: true
-    description: 'The location of the infrastructure template'
-  infrastructure_parameter_location:
-    required: true
-    description: 'The location of the infrastructure parameters'
-  resource_group:
-      description: 'The resource group to deploy to'
-      required: true
-  subscription_id:
-      description: 'The subscription to deploy to'
-      required: true
   azure_credentials:
       description: 'The credentials to use to login to Azure'
       required: true
   github_token:
       description: 'The token to use to login to GitHub'
+      required: true
+  web_app_name:
+      description: 'The name of the web app'
+      required: true
+  deployment_token:
+      description: 'The token to use to deploy the web app'
       required: true
     
 runs:
@@ -41,29 +32,10 @@ runs:
         with:
           creds: ${{ inputs.azure_credentials }}
 
-      - name: Deploy infrastructure
-        uses: ./.github/actions/infrastructure
-        id: infrastructure
-        with:
-          deploy: true
-          resource_group: ${{ inputs.resource_group }}
-          subscription_id: ${{ inputs.subscription_id }}
-          parameter_file: ${{ inputs.infrastructure_parameter_location }}
-          template_file: ${{ inputs.infrastructure_template_location }}
-          environment: dev
-
-      - name: Get deployment keys
-        uses: azure/CLI@v1
-        id: set-secrets
-        with:
-          azcliversion: 2.30.0
-          inlineScript: |
-            echo SWA_DEPLOYMENT_KEY=$(az staticwebapp secrets list --name ${{ steps.infrastructure.outputs.static_web_app_name}} --query "properties.apiKey" -o tsv) >> $GITHUB_OUTPUT
-
       - name: Build and Deploy web app
         uses: Azure/static-web-apps-deploy@v1
         with:
-          azure_static_web_apps_api_token: ${{ steps.set-secrets.outputs.SWA_DEPLOYMENT_KEY }}
+          azure_static_web_apps_api_token: ${{ inputs.deployment_token }}
           repo_token: ${{ inputs.github_token }}
           action: "upload"
           app_location: ${{ inputs.web_app_location }}

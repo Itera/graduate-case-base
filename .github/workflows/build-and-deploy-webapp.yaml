@@ -1,13 +1,15 @@
-name: build-and-deploy
+name: Build and deploy web app
+run-name: Build and deploy web app
 
 on:
   workflow_dispatch:
   push:
     branches: [main]
+    paths:
+      - 'project/web/**'
 
 env:
     WEB_APP_LOCATION: project/web
-    API_LOCATION: project/Api
     WEB_APP_ARTIFACT_LOCATION: dist # relative to WEB_APP_LOCATION
     INFRASTRUCTURE_TEMPLATE_LOCATION: ./infrastructure/main.bicep
     INFRASTRUCTURE_PARAMETER_LOCATION: ./infrastructure/parameters/common.json
@@ -21,18 +23,10 @@ jobs:
       - name: Checkout repo
         uses: actions/checkout@v3
 
-      - name: Setup Node
-        uses: actions/setup-node@v3
-
-      - name: Install dependencies
-        working-directory: ${{ env.WEB_APP_LOCATION }}
-        run: |
-          npm ci
-
-      - name: Build project
-        working-directory: ${{ env.WEB_APP_LOCATION }}
-        run: |
-          npm run build
+      - name: Build web app
+        uses: ./.github/actions/build-web-app
+        with:
+          web_app_location: ${{ env.WEB_APP_LOCATION }}
 
   deploy-dev:
     needs: [build]
@@ -46,11 +40,7 @@ jobs:
         - name: Deploy web app
           uses: ./.github/actions/deploy-web-app
           with:
-              environment: dev
               web_app_location: ${{ env.WEB_APP_LOCATION }}
               web_app_artifact_location: ${{ env.WEB_APP_ARTIFACT_LOCATION }}
-              infrastructure_template_location: ${{ env.INFRASTRUCTURE_TEMPLATE_LOCATION }}
-              infrastructure_parameter_location: ${{ env.INFRASTRUCTURE_PARAMETER_LOCATION }}
               azure_credentials: ${{ secrets.AZURE_CREDENTIALS }}
-              resource_group: ${{ secrets.AZURE_RG }}
-              subscription_id: ${{ secrets.AZURE_SUBSCRIPTION }}
+              deployment_token: ${{ secrets.WEBAPP_DEPLOYMENT_TOKEN }}

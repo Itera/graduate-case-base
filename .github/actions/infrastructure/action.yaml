@@ -23,6 +23,9 @@ inputs:
     description: 'The template file to use'
     required: true
     default: 'main.bicep'
+  azure_credentials:
+    description: 'The credentials to use to login to Azure'
+    required: true
 
 
 outputs:
@@ -38,6 +41,11 @@ runs:
 
   steps:
     - uses: actions/checkout@v3
+      
+    - name: Login to Azure
+      uses: azure/login@v1
+      with:
+        creds: ${{ inputs.azure_credentials }}
             
     - name: Verify or deploy infrastructure
       uses: azure/arm-deploy@v1
@@ -49,4 +57,4 @@ runs:
         parameters: ${{ inputs.parameter_file }}
         failOnStdErr: true
         scope: "resourcegroup"
-        deploymentMode: ${{ inputs.deploy == 'true' && 'Complete' || 'Validate' }}
+        deploymentMode: ${{ inputs.deploy == 'true' && 'Incremental' || 'Validate' }}
