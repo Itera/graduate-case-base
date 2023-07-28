@@ -6,11 +6,11 @@ function App() {
 
   return (
     <Flex
-      width='100vw'
-      height='100vh'
-      alignContent='center'
-      justifyContent='center'
-      backgroundColor='#f0f0f0'
+      width="100vw"
+      height="100vh"
+      alignContent="center"
+      justifyContent="center"
+      backgroundColor="#f0f0f0"
     >
       <Box maxW="2xl" m="0 auto">
         <Heading as="h1" textAlign="center" fontSize="5xl" mt="100px">
@@ -24,7 +24,7 @@ function App() {
             w="fit-content"
             p="4"
             px="50px"
-            colorScheme="blue"
+            colorScheme="explore-yellow"
             borderRadius="10px"
             m="0 auto"
             mt="8"
