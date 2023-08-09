@@ -96,7 +96,7 @@ public class GuestFunction
         catch (MongoWriteException e)
         {
             _logger.LogError(e, "Could not update guest");
-            return new ConflictObjectResult($"Could not update guest {guest.Id}");
+            return new ConflictObjectResult($"Could not update guest {guest.Id}. Reason: {e.WriteError.Category}");
         }
     }
 
@@ -129,7 +129,7 @@ public class GuestFunction
         catch (MongoWriteException e)
         {
             _logger.LogError(e, "Could not assign guest to a room");
-            return new ConflictObjectResult($"Could not assign guest {guest.Id} to a room");
+            return new ConflictObjectResult($"Could not assign guest {guest.Id} to a room. Reason: {e.WriteError.Category}");
         }
 
         try
@@ -142,7 +142,7 @@ public class GuestFunction
         catch (MongoWriteException e)
         {
             _logger.LogError(e, "Could not create guest");
-            return new ConflictObjectResult($"Could not create guest {guest.Id}");
+            return new ConflictObjectResult($"Could not create guest {guest.Id}. Reason: {e.WriteError.Category}");
         }
 
     }

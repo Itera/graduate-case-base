@@ -111,7 +111,7 @@ public class RoomFunction
         catch (MongoWriteException e)
         {
             _logger.LogError(e, "Could not create new room");
-            return new ConflictObjectResult("Could not create new room");
+            return new ConflictObjectResult($"Could not create new room. Reason: {e.WriteError.Category}");
         }
     }
 

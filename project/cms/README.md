@@ -14,7 +14,7 @@ This project contain the Expore Cruise Managment System (CMS).
 
 ### Configuration
 
-Add a `local.settings.json` file with the following content in the project's root folder:
+Add a `local.settings.json` file with the following content in the CMS project's root folder; [./Explore.Cms](./Explore.Cms/)
 
 ```json
 {

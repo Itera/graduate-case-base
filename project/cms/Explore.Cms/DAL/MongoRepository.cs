@@ -13,12 +13,12 @@ namespace Explore.Cms.DAL;
 
 public class MongoRepository<TDocument> : IMongoRepository<TDocument> where TDocument : IDocument, new()
 {
-    private readonly IMongoCollection<TDocument> _collection;
+    protected readonly IMongoCollection<TDocument> Collection;
 
     protected MongoRepository(IOptions<MongoDbOptions> options)
     {
         var database = new MongoClient(options.Value.ConnectionString).GetDatabase(options.Value.DatabaseName);
-        _collection = database.GetCollection<TDocument>(GetCollectionName(typeof(TDocument)));
+        Collection = database.GetCollection<TDocument>(GetCollectionName(typeof(TDocument)));
     }
 
     private static string GetCollectionName(ICustomAttributeProvider documentType)
@@ -31,53 +31,53 @@ public class MongoRepository<TDocument> : IMongoRepository<TDocument> where TDoc
 
     public void AddOne(TDocument doc)
     {
-        _collection.InsertOne(doc);
+        Collection.InsertOne(doc);
     }
 
     public async Task AddOneAsync(TDocument doc)
     {
-        await _collection.InsertOneAsync(doc, new InsertOneOptions());
+        await Collection.InsertOneAsync(doc, new InsertOneOptions());
     }
 
     public void DeleteOne(Expression<Func<TDocument, bool>> filterExpression)
     {
-        _collection.FindOneAndDelete(filterExpression);
+        Collection.FindOneAndDelete(filterExpression);
     }
 
     public async Task DeleteOneAsync(Expression<Func<TDocument, bool>> filterExpression)
     {
-        await _collection.FindOneAndDeleteAsync(filterExpression);
+        await Collection.FindOneAndDeleteAsync(filterExpression);
     }
 
     public TDocument FindOneById(ObjectId id)
     {
-        var res = _collection.Find(e => e.Id.Equals(id));
+        var res = Collection.Find(e => e.Id.Equals(id));
 
         return res.Any() ? res.First() : new TDocument();
     }
 
     public async Task<TDocument> FindOneByIdAsync(ObjectId id)
     {
-        var res = (await _collection.FindAsync(e => e.Id.Equals(id))).ToList();
+        var res = (await Collection.FindAsync(e => e.Id.Equals(id))).ToList();
 
         return res.Any() ? res.First() : new TDocument();
     }
 
     public IEnumerable<TDocument> Find(Expression<Func<TDocument, bool>> filterExpression)
     {
-        return _collection.Find(filterExpression).ToEnumerable();
+        return Collection.Find(filterExpression).ToEnumerable();
     }
 
     public async Task<IEnumerable<TDocument>> FindAsync(Expression<Func<TDocument, bool>> filterExpression)
     {
-        return (await _collection.FindAsync(filterExpression)).ToEnumerable();
+        return (await Collection.FindAsync(filterExpression)).ToEnumerable();
     }
 
     public TDocument UpdateOne(TDocument document)
     {
         document.UpdatedAt = DateTime.Now;
         
-        return _collection.FindOneAndUpdate(r => r.Id.Equals(document.Id),
+        return Collection.FindOneAndUpdate(r => r.Id.Equals(document.Id),
             new ObjectUpdateDefinition<TDocument>(document));
     }
 
@@ -85,7 +85,7 @@ public class MongoRepository<TDocument> : IMongoRepository<TDocument> where TDoc
     {
         document.UpdatedAt = DateTime.Now;
         
-        return await _collection.FindOneAndUpdateAsync<TDocument>(r => r.Id == document.Id,
+        return await Collection.FindOneAndUpdateAsync<TDocument>(r => r.Id == document.Id,
             new ObjectUpdateDefinition<TDocument>(document),
             new FindOneAndUpdateOptions<TDocument, TDocument>
                 { IsUpsert = false, ReturnDocument = ReturnDocument.After });
@@ -93,12 +93,12 @@ public class MongoRepository<TDocument> : IMongoRepository<TDocument> where TDoc
 
     public bool DeleteById(ObjectId id)
     {
-        return _collection.FindOneAndDelete(d => d.Id.Equals(id)) != null;
+        return Collection.FindOneAndDelete(d => d.Id.Equals(id)) != null;
     }
 
     public async Task<bool> DeleteByIdAsync(ObjectId id)
     {
-        var deletedDocument = await _collection.FindOneAndDeleteAsync(d => d.Id.Equals(id));
+        var deletedDocument = await Collection.FindOneAndDeleteAsync(d => d.Id.Equals(id));
         return deletedDocument != null;
     }
 }

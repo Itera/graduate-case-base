@@ -84,7 +84,7 @@ public class TransactionFunction
         catch (MongoWriteException e)
         {
             _logger.LogError(e, "Could not add transaction to room {RoomId}", room.Id);
-            return new ConflictObjectResult($"Could not add transaction to room {room.Id}");
+            return new ConflictObjectResult($"Could not add transaction to room {room.Id}. Reason: {e.WriteError.Category}");
         }
 
         try
@@ -94,7 +94,7 @@ public class TransactionFunction
         catch (MongoWriteException e)
         {
             _logger.LogError(e, "Could not create transaction");
-            return new ConflictObjectResult("Could not create transaction");
+            return new ConflictObjectResult($"Could not create transaction. Reason: {e.WriteError.Category}");
         }
         
         var createdTransaction = await _transactionService.FindOneByIdAsync(transaction.Id);
