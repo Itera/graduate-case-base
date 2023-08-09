@@ -10,6 +10,7 @@ using Microsoft.Azure.WebJobs;
 using Microsoft.Azure.WebJobs.Extensions.Http;
 using Microsoft.Extensions.Logging;
 using MongoDB.Bson;
+using MongoDB.Driver;
 
 namespace Explore.Cms.Trigger.Http;
 
@@ -31,7 +32,7 @@ public class RoomFunction
 
     [FunctionName("GetRoom")]
     public async Task<IActionResult> GetRoom(
-        [HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = "room/{id}")]
+        [HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = "rooms/{id}")]
         HttpRequest req, string id)
     {
         var room = await _roomService.GetRoom(ObjectId.Parse(id));
@@ -42,78 +43,24 @@ public class RoomFunction
 
     [FunctionName("GetRooms")]
     public async Task<IActionResult> GetRooms(
-        [HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = "room")]
+        [HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = "rooms")]
         HttpRequest req)
     {
         return new OkObjectResult(await _roomService.GetRooms(r => true));
     }
 
-    [FunctionName("GetFirstAvailableRoom")]
-    public async Task<IActionResult> GetFirstAvailableRoom(
-        [HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = "room/available")]
-        HttpRequest req)
-    {
-        var room = await _roomService.GetNextAvailableRoom();
-        return new OkObjectResult(room);
-    }
-
     [FunctionName("GetRoomTransactions")]
     public async Task<IActionResult> GetRoomTransactions(
-        [HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = "room/{id}/transactions")]
+        [HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = "rooms/{id}/transactions")]
         HttpRequest req, string id)
     {
         var transactions = (await _transactionService.FindAsync(t => t.RoomId == new ObjectId(id))).ToList();
         return new OkObjectResult(transactions);
     }
 
-    [FunctionName("UpdateRoom")]
-    public async Task<IActionResult> UpdateRoom(
-        [HttpTrigger(AuthorizationLevel.Anonymous, "put", Route = "room")]
-        HttpRequest req)
-    {
-        var validatedRequest = await HttpRequestHelpers.ValidateRequest<Room, UpdateRoomValidator>(req);
-        if (!validatedRequest.IsValid) return validatedRequest.ToBadRequest();
-
-        var room = validatedRequest.Value;
-
-        var existingRoom = await _roomService.GetRoom(room.Id);
-        if (existingRoom.Id == ObjectId.Empty) return new NotFoundObjectResult("Room does not exist.");
-        if (existingRoom.Id != room.Id) return new BadRequestObjectResult("Cannot update room id.");
-        if (existingRoom.RoomNumber != room.RoomNumber) return new BadRequestObjectResult("Cannot update room number.");
-
-        var updatedRoom = await _roomService.UpdateRoom(room);
-
-        var guestsToAdd = room.GuestIds.Except(existingRoom.GuestIds)
-            .Distinct()
-            .Select(async gId => await _guestService.FindOneByIdAsync(gId))
-            .Select(t => t.Result)
-            .ToList();
-
-        var guestsToRemove = existingRoom.GuestIds.Except(room.GuestIds)
-            .Select(async gId => await _guestService.FindOneByIdAsync(gId))
-            .Select(t => t.Result)
-            .Distinct()
-            .ToList();
-
-        foreach (var guest in guestsToAdd)
-        {
-            await _roomService.RemoveGuestFromRoom(guest.RoomId, guest.Id);
-            guest.RoomId = room.Id;
-            await _guestService.UpdateGuest(guest);
-        }
-
-        foreach (var guest in guestsToRemove)
-        {
-            guest.RoomId = ObjectId.Empty;
-            await _guestService.UpdateGuest(guest);
-        }
-
-        return new OkObjectResult(updatedRoom);
-    }
-
     [FunctionName("CreateRoom")]
     public async Task<IActionResult> CreateRoom(
-        [HttpTrigger(AuthorizationLevel.Anonymous, "post", Route = "room")] HttpRequest req)
+        [HttpTrigger(AuthorizationLevel.Anonymous, "post", Route = "rooms")] HttpRequest req)
     {
         var validatedRequest = await HttpRequestHelpers.ValidateRequest<Room, CreateRoomValidator>(req);
         if (!validatedRequest.IsValid) return validatedRequest.ToBadRequest();
@@ -121,8 +68,17 @@ public class RoomFunction
         var room = validatedRequest.Value;
         room.RoomNumber = await GetNextNewRoomNumber();
 
-        await _roomService.AddRoom(room);
-        return new OkObjectResult(room);
+        try
+        {
+            await _roomService.AddRoom(room);
+            return new OkObjectResult(room);
+        }
+        catch (MongoWriteException e)
+        {
+            _logger.LogError(e, "Could not create new room");
+            return new ConflictObjectResult("Could not create new room");
+        }
+
     }
 
     private async Task<int> GetNextNewRoomNumber()

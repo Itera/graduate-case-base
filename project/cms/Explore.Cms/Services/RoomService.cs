@@ -35,16 +35,6 @@ public class RoomService : MongoRepository<Room>, IRoomService
         return await FindAsync(filterExpression);
     }
 
-    public async Task<Room> UpdateRoom(Room room)
-    {
-        if (room.Id == ObjectId.Empty) return room;
-
-        var existingRoom = await FindOneByIdAsync(room.Id);
-        if (existingRoom.Id == ObjectId.Empty) return room;
-
-        return await UpdateOneAsync(room);
-    }
-
     public async Task<Room> GetNextAvailableRoom()
     {
         var rooms = (await FindAsync(r => true)).ToList();
@@ -61,68 +51,21 @@ public class RoomService : MongoRepository<Room>, IRoomService
         return room;
     }
 
-    public async Task<Guest> AssignGuestToNewRoom(Guest guest)
-    {
-        var room = await GetNextAvailableRoom();
-
-        guest.RoomId = room.Id;
-        room.GuestIds.Add(guest.Id);
-
-        await UpdateOneAsync(room);
-        return guest;
-    }
-
-    public async Task<Guest> AssignGuestToExistingRoom(Guest guest)
-    {
-        var room = await FindOneByIdAsync(guest.RoomId);
-
-        if (room.Id == ObjectId.Empty) return guest;
-
-        room.GuestIds.Add(guest.Id);
-        await UpdateOneAsync(room);
-
-        return guest;
-    }
-
-    public async Task<Guest> UpdateGuestRoom(Guest guest)
-    {
-        var currentRoom =
-            (await FindAsync(r => r.GuestIds.Contains(guest.Id))).FirstOrDefault(new Room());
-
-        if ((currentRoom.Id == ObjectId.Empty && guest.RoomId == ObjectId.Empty) || currentRoom.Id == guest.RoomId)
-            return guest;
-
-        var newRoom = await FindOneByIdAsync(guest.RoomId);
-
-        if (newRoom.Id == ObjectId.Empty && currentRoom.Id != ObjectId.Empty && guest.RoomId != ObjectId.Empty)
-        {
-            guest.RoomId = currentRoom.Id;
-            return guest;
-        }
-
-        if (currentRoom.Id != ObjectId.Empty)
-        {
-            currentRoom.GuestIds.Remove(guest.Id);
-            await UpdateOneAsync(currentRoom);
-        }
-
-        if (guest.RoomId == ObjectId.Empty) return guest;
-
-        newRoom.GuestIds.Add(guest.Id);
-        await UpdateOneAsync(newRoom);
-
-        return guest;
-    }
-
-    public async Task RemoveGuestFromRoom(ObjectId roomId, ObjectId guestId)
+    public async Task<bool> RemoveGuestFromRoom(ObjectId roomId, ObjectId guestId)
     {
         var room = await FindOneByIdAsync(roomId);
-        await RemoveGuestFromRoom(room, guestId);
+
+        if (room.Id == ObjectId.Empty) return false;
+
+        room.GuestIds.Remove(guestId);
+        await UpdateOneAsync(room);
+        return true;
     }
 
-    public async Task<Room> AddTransactionToRoom(Room room, GuestTransaction transaction)
+    public async Task<Room> AddTransactionToRoom(ObjectId roomId, ObjectId transactionId)
     {
-        room.TransactionIds.Add(transaction.Id);
+        var room = await GetRoom(roomId);
+        room.TransactionIds.Add(transactionId);
         return await UpdateOneAsync(room);
     }
 
@@ -133,11 +76,11 @@ public class RoomService : MongoRepository<Room>, IRoomService
         return await UpdateOneAsync(room);
     }
 
-    private async Task RemoveGuestFromRoom(Room room, ObjectId guestId)
+    public async Task<Room> AddGuestToRoom(ObjectId roomId, ObjectId guestId)
     {
-        if (room.Id == ObjectId.Empty) return;
-
-        room.GuestIds.Remove(guestId);
+        var room = await FindOneByIdAsync(roomId);
+        room.GuestIds.Add(guestId);
         await UpdateOneAsync(room);
+        return room;
     }
 }

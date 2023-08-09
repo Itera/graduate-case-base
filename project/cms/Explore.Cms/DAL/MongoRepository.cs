@@ -5,7 +5,6 @@ using System.Reflection;
 using System.Threading.Tasks;
 using Explore.Cms.Configuration;
 using Explore.Cms.Models;
-using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using MongoDB.Bson;
 using MongoDB.Driver;
@@ -76,25 +75,30 @@ public class MongoRepository<TDocument> : IMongoRepository<TDocument> where TDoc
 
     public TDocument UpdateOne(TDocument document)
     {
+        document.UpdatedAt = DateTime.Now;
+        
         return _collection.FindOneAndUpdate(r => r.Id.Equals(document.Id),
             new ObjectUpdateDefinition<TDocument>(document));
     }
 
     public async Task<TDocument> UpdateOneAsync(TDocument document)
     {
+        document.UpdatedAt = DateTime.Now;
+        
         return await _collection.FindOneAndUpdateAsync<TDocument>(r => r.Id == document.Id,
             new ObjectUpdateDefinition<TDocument>(document),
             new FindOneAndUpdateOptions<TDocument, TDocument>
                 { IsUpsert = false, ReturnDocument = ReturnDocument.After });
     }
 
-    public void DeleteById(ObjectId id)
+    public bool DeleteById(ObjectId id)
     {
-        _collection.FindOneAndDelete(d => d.Id.Equals(id));
+        return _collection.FindOneAndDelete(d => d.Id.Equals(id)) != null;
     }
 
-    public Task DeleteByIdAsync(ObjectId id)
+    public async Task<bool> DeleteByIdAsync(ObjectId id)
     {
-        return _collection.FindOneAndDeleteAsync(d => d.Id.Equals(id));
+        var deletedDocument = await _collection.FindOneAndDeleteAsync(d => d.Id.Equals(id));
+        return deletedDocument != null;
     }
 }

@@ -9,4 +9,5 @@ public interface IDocument
     [BsonRepresentation(BsonType.ObjectId)]
     ObjectId Id { get; }
     DateTime CreatedAt { get; }
+    DateTime UpdatedAt { set; }
 }

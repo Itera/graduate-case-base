@@ -18,6 +18,6 @@ public interface IMongoRepository<TDocument> where TDocument : IDocument
     Task<IEnumerable<TDocument>> FindAsync(Expression<Func<TDocument, bool>> filterExpression);
     TDocument UpdateOne(TDocument document);
     Task<TDocument> UpdateOneAsync(TDocument document);
-    void DeleteById(ObjectId id);
-    Task DeleteByIdAsync(ObjectId id);
+    bool DeleteById(ObjectId id);
+    Task<bool> DeleteByIdAsync(ObjectId id);
 }

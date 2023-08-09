@@ -11,5 +11,5 @@ public class Guest : Document
     [BsonElement("lastName")] public string LastName { get; init; } = string.Empty;
     [BsonElement("email")] public string Email { get; set; } = string.Empty;
     [BsonElement("roomId")] public ObjectId RoomId { get; set; } = ObjectId.Empty;
-    [BsonElement("azureId")] public Guid AzureId { get; set; } = new();
+    [BsonElement("userId")] public Guid UserId { get; set; } = new();
 }
