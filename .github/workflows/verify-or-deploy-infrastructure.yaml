@@ -24,7 +24,7 @@ on:
 
 env:
   INFRASTRUCTURE_TEMPLATE_LOCATION: ./infrastructure/main.bicep
-  INFRASTRUCTURE_PARAMETER_LOCATION: ./project/infrastructure/parameters/parameters.json ./infrastructure/parameters/common-parameters-${{ inputs.environment }}.json
+  INFRASTRUCTURE_PARAMETER_LOCATION: ./project/infrastructure/parameters/parameters.json ./infrastructure/parameters/common-parameters.json
   
 jobs:
  infrastructure:
