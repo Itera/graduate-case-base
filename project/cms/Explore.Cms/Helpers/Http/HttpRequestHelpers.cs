@@ -7,10 +7,6 @@ using FluentValidation.Results;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Azure.WebJobs.Extensions.Http;
 using MongoDB.Bson;
-using MongoDB.Bson.Serialization;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Serialization;
-using JsonSerializer = System.Text.Json.JsonSerializer;
 
 namespace Explore.Cms.Helpers.Http;
 

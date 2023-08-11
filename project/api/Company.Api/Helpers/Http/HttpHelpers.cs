@@ -22,7 +22,7 @@ public static class HttpHelpers
         {
             jsonBody = await GetJsonBody<T>(req);
         }
-        catch (Exception ex) when (ex is FormatException or JsonReaderException)
+        catch (Exception ex) when (ex is FormatException or JsonReaderException or JsonSerializationException)
         {
             throw new ValidationException("Cannot parse json");
         }

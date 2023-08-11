@@ -18,27 +18,21 @@ Add a `local.settings.json` file with the following content in the API project's
 
 ```json
 {
-    "IsEncrypted": false,
-    "Values": {
-        "AzureWebJobsStorage": "UseDevelopmentStorage=true",
-        "FUNCTIONS_WORKER_RUNTIME": "dotnet",
-        "CmsOptions:BaseUrl": "<your CMS base URL>"
-    }
+  "IsEncrypted": false,
+  "Values": {
+    "AzureWebJobsStorage": "UseDevelopmentStorage=true",
+    "FUNCTIONS_WORKER_RUNTIME": "dotnet",
+    "CmsOptions:BaseUrl": "<your cms url>"
+  },
+  "Host": {
+    "LocalHttpPort": 7072,
+    "CORS": "*"
+  }
 }
 ```
 
-For example:
+See the [./Company.Api/local.settings.example.json](./Company.Api/local.settings.example.json) file for an example.
 
-```json
-{
-    "IsEncrypted": false,
-    "Values": {
-        "AzureWebJobsStorage": "UseDevelopmentStorage=true",
-        "FUNCTIONS_WORKER_RUNTIME": "dotnet",
-        "CmsOptions:BaseUrl": "http://localhost:7072/api/"
-    }
-}
-```
 
 ### Running the project
 
