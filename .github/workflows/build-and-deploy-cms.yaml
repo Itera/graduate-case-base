@@ -1,5 +1,5 @@
-name: Build and deploy dotnet app
-run-name: Build and deploy dotnet app
+name: Build and deploy CMS
+run-name: Build and deploy CMS
 
 on:
   workflow_dispatch:
@@ -11,7 +11,7 @@ on:
 env:
     DOTNET_APP_LOCATION: cms
     DOTNET_APP_NAME: Explore.Cms
-    OUTPUT_LOCATION: ${{ github.workspace }}/cms
+    OUTPUT_LOCATION: ${{ github.workspace }}/outputs/cms
 
 jobs:
   build:

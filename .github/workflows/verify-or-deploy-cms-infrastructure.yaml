@@ -24,9 +24,9 @@ on:
 
 env:
   COMMON_INFRASTRUCTURE_TEMPLATE_LOCATION: ./infrastructure/common.bicep
-  COMMON_INFRASTRUCTURE_PARAMETER_LOCATION: ./infrastructure/parameters/common-parameters.json ./cms/infrastructure/parameters/common.json
+  COMMON_INFRASTRUCTURE_PARAMETER_LOCATION: ./infrastructure/parameters/common.json ./cms/infrastructure/parameters/common.json
   INFRASTRUCTURE_TEMPLATE_LOCATION: ./infrastructure/project.bicep
-  CMS_INFRASTRUCTURE_PARAMETER_LOCATION: ./cms/infrastructure/parameters/parameters.json ./infrastructure/parameters/common-parameters.json
+  CMS_INFRASTRUCTURE_PARAMETER_LOCATION: ./cms/infrastructure/parameters/parameters.json ./cms/infrastructure/parameters/common.json ./infrastructure/parameters/common.json
 
 jobs:
   common-infrastructure:
