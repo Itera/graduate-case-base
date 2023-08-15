@@ -5,6 +5,12 @@ inputs:
   app_location:
     required: true
     description: 'The location of the dotnet app'
+  app_name:
+    required: true
+    description: 'The name of the dotnet app'
+  output_path:
+    required: true
+    description: 'The location to output the build'
     
 runs:
   using: composite  
@@ -27,4 +33,10 @@ runs:
         shell: bash
         working-directory: ${{ inputs.app_location }}
         run: |
-          dotnet build
+          dotnet build --configuration Release PublishDir=${{ inputs.output_path }}
+
+      - name: Upload dotnet app
+        uses: actions/upload-artifact@v3
+        with:
+            name: ${{ inputs.app_name }}
+            path: ${{ inputs.output_path }}

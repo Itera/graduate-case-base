@@ -4,11 +4,6 @@
   "parameters": {
     "appName": {
       "value": "ExploreCMS"
-    },
-    
-    "deploySwa": {
-      "value": false
     }
   }
 }
-    
