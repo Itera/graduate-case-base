@@ -23,7 +23,7 @@ on:
       - infrastructure/**
 
 env:
-  INFRASTRUCTURE_TEMPLATE_LOCATION: ./infrastructure/cms.bicep
+  INFRASTRUCTURE_TEMPLATE_LOCATION: ./infrastructure/common.bicep
   INFRASTRUCTURE_PARAMETER_LOCATION: ./cms/infrastructure/parameters/parameters.json ./infrastructure/parameters/common-parameters.json
 
 jobs:
