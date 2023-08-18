@@ -60,8 +60,8 @@ public class GuestFunction
     }
 
     [FunctionName("GetGuest")]
-    [OpenApiOperation("CreateGuest", "CreateGuest", Summary = "Create a guest", Description = "Create a guest")]
-    [OpenApiParameter("id", Description = "External userId of the guest", In = ParameterLocation.Path, Required = true,
+    [OpenApiOperation("GetGuest", "GetGuest", Summary = "Get one guest", Description = "Get one guest by their id")]
+    [OpenApiParameter("id", Description = "Id of the guest", In = ParameterLocation.Path, Required = true,
         Type = typeof(Guid))]
     [OpenApiResponseWithBody(HttpStatusCode.OK, "application/json", typeof(GuestResponse), Summary = "The ok response",
         Description = "The ok response")]

@@ -26,6 +26,8 @@ const Home = () => {
   const post = usePost();
 
   useEffect(() => {
+    if (isLoading) return;
+    
     const checkAndCreateGuest = async () => {
       if (!isLoading && guest?.id == "" && account) {
         const newGuestData = {
