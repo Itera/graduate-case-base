@@ -65,7 +65,7 @@ const Home = () => {
                   Welcome, { account?.name }!
         </Heading>
         <Text fontSize="xl" textAlign="center" mt="30px">
-          { guest?.id == "" ? "Hang on, we are creating a guest account for you..." : "Your room id is " + guest?.roomId }
+          { guest?.id == "" && isLoading ? "Hang on, we are creating a guest account for you..." : "Your room id is " + guest?.roomId }
         </Text>
       </Box>
     </Flex>
