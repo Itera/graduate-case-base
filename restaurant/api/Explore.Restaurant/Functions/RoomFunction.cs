@@ -1,10 +1,10 @@
 using System;
 using System.Net;
 using System.Threading.Tasks;
-using Explore.Spa.Exceptions;
-using Explore.Spa.Helpers.Http;
-using Explore.Spa.Models;
-using Explore.Spa.Services;
+using Explore.Restaurant.Exceptions;
+using Explore.Restaurant.Helpers.Http;
+using Explore.Restaurant.Models;
+using Explore.Restaurant.Services;
 using FluentValidation;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -14,7 +14,7 @@ using Microsoft.Azure.WebJobs.Extensions.OpenApi.Core.Attributes;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 
-namespace Explore.Spa.Functions;
+namespace Explore.Restaurant.Functions;
 
 public class RoomFunction
 {

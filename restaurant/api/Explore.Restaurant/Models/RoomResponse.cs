@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace Explore.Spa.Models;
+namespace Explore.Restaurant.Models;
 
 public class RoomResponse : Entity
 {

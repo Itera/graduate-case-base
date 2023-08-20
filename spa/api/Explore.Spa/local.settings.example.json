@@ -6,7 +6,7 @@
     "CmsOptions:BaseUrl": "http://localhost:7071/api/"
   },
   "Host": {
-    "LocalHttpPort": 7072,
+    "LocalHttpPort": 7074,
     "CORS": "*"
   }
 }

@@ -3,7 +3,7 @@
   "contentVersion": "1.0.0.0",
   "parameters": {
     "stAccountName": {
-      "value": "iteraexplore"
+      "value": "exploreitera"
     },
 
     "environment": {
@@ -11,7 +11,7 @@
     },
 
     "projectName": {
-      "value": "iteraexplore"
+      "value": "exploreitera"
     }
   }
 }

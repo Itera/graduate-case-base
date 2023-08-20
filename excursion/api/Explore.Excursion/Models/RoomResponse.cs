@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace Explore.Spa.Models;
+namespace Explore.Excursion.Models;
 
 public class RoomResponse : Entity
 {
