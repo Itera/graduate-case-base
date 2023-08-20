@@ -43,8 +43,8 @@ public class RoomFunction
     {
         try
         {
-            var res = Guid.TryParse(id, out var parsedGuid);
-            if (!res) throw new ValidationException("Id is not a valid guid");
+            var isParsed = Guid.TryParse(id, out var parsedGuid);
+            if (!isParsed) throw new ValidationException("Id is not a valid guid");
             
             var response = await _cmsService.GetRoomByIdAsync(parsedGuid);
 
