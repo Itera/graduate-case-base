@@ -1,19 +1,23 @@
-# Template repo for Graduate case 2023
+# Graduate case 2023
 
-This repository is created as a basis for the Graduate case 2023. The repository is intended to be forked. 
+This repository contains the code for the Itera graduate 2023 case assignment.
 
 ## Quick start
 
-Clone the repository with `git clone git@github.com:Itera/graduate-case-base.git`.
+Clone the repository with `git clone git@github.com:Itera/graduate-case-2023.git`.
+
+### Projects
+
+
 
 ### Web
 
 Run the following commands from the root of the repository:
 
-Change directory to web
+Change directory to one of the projects
 
 ```bash
-cd project/web 
+cd restaurant/web 
 ```
 
 Install dependencies
@@ -32,23 +36,33 @@ npm run dev
 
 Run the following commands from the root of the repository:
 
-Change directory to server
+Change directory to server in selected project
 
 ```bash
-cd project/Api/FunctionApp
+cd restaurant/api/Explore.Restaurant
 ```
 
 Run server
 
 ```bash
-dotnet run
+func host start
 ```
 
 ## Repository structure
 
-The repository is structured as a monorepo, with a `project` directory containing all the code for the project. The `project` directory contains two subdirectories, `web` and `api`, which contain the code for the web and server projects respectively. The `web` and `api` directories are both structured as standalone projects, with their own `package.json` and `dotnet` files. 
+The repository is structured as a monorepo, with three projects; [restaurant](./restaurant/), [spa](./spa/) and [excursion](./excursion/). 
 
-See documentation for the [web](project/web/README.md) and [api](project/api/README.md) projects for detailed information.
+All projects contains:
+
+1. A web application (React)
+2. A serverless API (Azure Functions, .NET)
+3. Tests
+4. Documentation
+5. Infrastructure parameters (Azure, Bicep) 
+
+The `web` and `api` directories of all projects are structured as standalone projects, with their own `package.json` and `dotnet` solution. 
+
+See documentation for the projects for detailed information.
 
 ## Infrastructure
 
@@ -56,6 +70,6 @@ The infrastructure for the project is defined in the `infrastructure` directory.
 
 ## Deployment
 
-The project is deployed to Azure using GitHub Actions. The deployment is configured in the `.github/workflows` directory. A workflow run for building and testing is triggered on every pull request to the `main` branch, and deployment is triggered on every push.
+The project is deployed to Azure using GitHub Actions. The deployment is configured in the `.github/workflows` directory. Workflows for building and testing is triggered on every pull request to the `main` branch, and deployment is triggered on every push.
 
 See more information about the workflows and deployment in their [documentation](doc/workflows.md).
