@@ -6,10 +6,10 @@ on:
   push:
     branches: [main]
     paths:
-      - 'restaurant/web/**'
+      - 'spa/web/**'
 
 env:
-    WEB_APP_LOCATION: restaurant/web
+    WEB_APP_LOCATION: spa/web
     WEB_APP_ARTIFACT_LOCATION: dist # relative to WEB_APP_LOCATION
 
 jobs:
@@ -55,7 +55,7 @@ jobs:
             VITE_API_BASE_URL: ${{ vars.VITE_API_BASE_URL_SPA }}
             VITE_API_SCOPE: ${{ vars.VITE_API_SCOPE_SPA }}
           with:
-            azure_static_web_apps_api_token: ${{ secrets.WEBAPP_DEPLOYMENT_TOKEN_RESTAURANT }}
+            azure_static_web_apps_api_token: ${{ secrets.WEBAPP_DEPLOYMENT_TOKEN_SPA }}
             repo_token: ${{ secrets.github_token }}
             action: "upload"
             app_location: ${{ env.WEB_APP_LOCATION }}
