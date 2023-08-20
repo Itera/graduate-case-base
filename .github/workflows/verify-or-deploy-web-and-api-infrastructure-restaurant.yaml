@@ -43,4 +43,4 @@ jobs:
             subscription_id: ${{ secrets.AZURE_SUBSCRIPTION }}
             deploy: ${{ (github.event_name == 'push' || github.event.inputs.deploy) && github.ref == 'refs/heads/main' }}
             environment: ${{ github.event.inputs.environment != null && github.event.inputs.environment || 'dev' }}
-            deployment_name: apiweb-${{ github.run_id }}
+            deployment_name: restaurant-${{ github.run_id }}

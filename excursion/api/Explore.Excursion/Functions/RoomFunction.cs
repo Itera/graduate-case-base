@@ -1,10 +1,10 @@
 using System;
 using System.Net;
 using System.Threading.Tasks;
-using Explore.Spa.Exceptions;
-using Explore.Spa.Helpers.Http;
-using Explore.Spa.Models;
-using Explore.Spa.Services;
+using Explore.Excursion.Exceptions;
+using Explore.Excursion.Helpers.Http;
+using Explore.Excursion.Models;
+using Explore.Excursion.Services;
 using FluentValidation;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -14,7 +14,7 @@ using Microsoft.Azure.WebJobs.Extensions.OpenApi.Core.Attributes;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 
-namespace Explore.Spa.Functions;
+namespace Explore.Excursion.Functions;
 
 public class RoomFunction
 {
