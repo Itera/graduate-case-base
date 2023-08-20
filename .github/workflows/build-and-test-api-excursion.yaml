@@ -1,0 +1,40 @@
+name: Build and test excursion api
+run-name: Build and test excursion api
+
+on:
+  workflow_dispatch:
+  pull_request:
+    branches: [main]
+    paths:
+      - 'excursion/api/**'
+
+env:
+  DOTNET_APP_LOCATION: excursion/api
+  DOTNET_APP_NAME: Explore.Excursion
+  OUTPUT_LOCATION: ${{ github.workspace }}/outputs/api
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Build api
+        uses: ./.github/actions/build-dotnet-app
+        with:
+          app_location: ${{ env.DOTNET_APP_LOCATION }}
+          app_name: ${{ env.DOTNET_APP_NAME }}
+          output_location: ${{ env.OUTPUT_LOCATION }}
+
+  test:
+    needs: build
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Run tests
+        uses: ./.github/actions/test-dotnet-app
+        with:
+          app_location: ${{ env.DOTNET_APP_LOCATION }}
