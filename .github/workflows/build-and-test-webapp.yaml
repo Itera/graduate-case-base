@@ -58,7 +58,7 @@ jobs:
         shell: bash
         working-directory: ${{ env.WEB_APP_TEST_LOCATION }}
         run: |
-          npx playwright install
+          npx playwright install --with-deps
 
       - name: Run tests
         working-directory: ${{ env.WEB_APP_TEST_LOCATION }}
