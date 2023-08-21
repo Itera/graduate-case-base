@@ -53,6 +53,12 @@ jobs:
         run: |
           npm ci
 
+      - name: Install Playwright
+        shell: bash
+        working-directory: ${{ env.WEB_APP_TEST_LOCATION }}
+        run: |
+          npx playwright install
+
       - name: Run tests
         working-directory: ${{ env.WEB_APP_TEST_LOCATION }}
         env:
