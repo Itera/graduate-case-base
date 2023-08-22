@@ -7,6 +7,7 @@ const baseURL =
 
 test('Accessibility test', async ({ page }) => {
   await page.goto(baseURL);
+  await expect(page).toHaveTitle(/Explore restaurant/);
 
   const accessibilityScanResults = await new AxeBuilder({ page })
     .withTags(['wcag2a'])
