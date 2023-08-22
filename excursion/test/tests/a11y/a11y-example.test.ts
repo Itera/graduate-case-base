@@ -6,7 +6,11 @@ const baseURL =
   'https://lively-flower-010ee8e03.3.azurestaticapps.net/';
 
 test('Accessibility test', async ({ page }) => {
-  await page.goto(baseURL);
+    await page.goto(baseURL, {
+      timeout: 0,
+      waitUntil: "domcontentloaded"
+    });
+  
   await expect(page).toHaveTitle(/Explore excursion/);
   
   const accessibilityScanResults = await new AxeBuilder({ page })

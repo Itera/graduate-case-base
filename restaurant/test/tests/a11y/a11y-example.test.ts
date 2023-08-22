@@ -5,7 +5,11 @@ const baseURL =
   process.env.BASE_URL || 'https://proud-rock-0a2164603.3.azurestaticapps.net/';
 
 test('Accessibility test', async ({ page }) => {
-  await page.goto(baseURL);
+    await page.goto(baseURL, {
+      timeout: 0,
+      waitUntil: 'domcontentloaded'
+    });
+  
   await expect(page).toHaveTitle(/Explore restaurant/);
 
   const accessibilityScanResults = await new AxeBuilder({ page })

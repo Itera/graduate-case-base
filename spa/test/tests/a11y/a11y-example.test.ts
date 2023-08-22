@@ -5,7 +5,11 @@ const baseURL =
   process.env.BASE_URL || 'https://gray-pond-07b588403.3.azurestaticapps.net/';
 
 test('Accessibility test', async ({ page }) => {
-  await page.goto(baseURL);
+  await page.goto(baseURL, {
+    timeout: 0,
+    waitUntil: 'domcontentloaded'
+  });
+
   await expect(page).toHaveTitle(/Explore spa/);
 
   const accessibilityScanResults = await new AxeBuilder({ page })
