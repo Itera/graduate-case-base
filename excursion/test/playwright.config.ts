@@ -30,7 +30,8 @@ export default defineConfig({
     trace: 'on-first-retry',
     extraHTTPHeaders: {
       Accept: 'application/json'
-    }
+    },
+    video: 'on-first-retry'
   },
 
   /* Configure projects for major browsers */
