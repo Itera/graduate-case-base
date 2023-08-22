@@ -1,4 +1,4 @@
-import { test as setup, expect } from '@playwright/test';
+import { expect, test as setup } from '@playwright/test';
 
 const authFile = 'playwright/.auth/user.json';
 const loginPage =
@@ -9,18 +9,22 @@ const loginPassword = process.env.LOGIN_PASSWORD || 'testing123';
 
 setup('authenticate', async ({ page }) => {
   // Start of authentication steps.
-  await page.goto(loginPage);
+  await page.goto(loginPage, {
+    timeout: 0,
+    waitUntil: 'networkidle'
+  }),
+    
   // Wait for the login page to load.
-  await page.waitForSelector('input[type="email"]');
-  await page.fill('input[type="email"]', loginUsername);
+  await page.waitForSelector('input[type="email"]'),
+  await page.fill('input[type="email"]', loginUsername),
   // Press next button.
-  await page.click('input[type="submit"]');
+  await page.click('input[type="submit"]'),
   // Wait for the password page to load.
-  await page.waitForSelector('input[name="passwd"]');
-  await page.fill('input[name="passwd"]', loginPassword);
+  await page.waitForSelector('input[name="passwd"]'),
+  await page.fill('input[name="passwd"]', loginPassword),
   // Press login button.
-  await page.click('input[type="submit"]');
+  await page.click('input[type="submit"]'),
 
   // End of authentication steps.
-  await page.context().storageState({ path: authFile });
+  await page.context().storageState({ path: authFile })
 });
