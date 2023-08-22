@@ -1,13 +1,13 @@
 using System.Net;
 using System.Net.Http.Headers;
-using Company.Api.Exceptions;
-using Company.Api.Models;
-using Company.Api.Services;
-using Company.Api.Test.TestUtils;
+using Explore.Spa.Exceptions;
+using Explore.Spa.Models;
+using Explore.Spa.Services;
+using Explore.Spa.Test.TestUtils;
 using Newtonsoft.Json;
 using NSubstitute;
 
-namespace Company.Api.Test.CmsService;
+namespace Explore.Spa.Test.CmsService;
 
 public class CmsServiceTests
 {

@@ -12,6 +12,7 @@ on:
 
 env:
   WEB_APP_LOCATION: excursion/web
+  WEB_APP_TEST_LOCATION: excursion/test
 
 jobs:
   build:
@@ -35,14 +36,3 @@ jobs:
         run: |
           npm run build
         
-
-  test:
-    needs: build
-    runs-on: ubuntu-latest
-
-    steps:
-      - uses: actions/checkout@v3
-
-      - name: Run tests
-        working-directory: ${{ env.WEB_APP_LOCATION }}
-        run: echo "Run tests"

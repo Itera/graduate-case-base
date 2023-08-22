@@ -1,6 +1,6 @@
 using System.Net;
 
-namespace Company.Api.Test.TestUtils;
+namespace Explore.Restaurant.Test.TestUtils;
 
 public class MockHttpMessageHandler : HttpMessageHandler
 {
