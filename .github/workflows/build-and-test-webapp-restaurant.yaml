@@ -12,6 +12,7 @@ on:
 
 env:
   WEB_APP_LOCATION: restaurant/web
+  WEB_APP_TEST_LOCATION: restaurant/test
 
 jobs:
   build:
@@ -34,15 +35,36 @@ jobs:
         working-directory: ${{ env.WEB_APP_LOCATION }}
         run: |
           npm run build
-        
-
+    
   test:
-    needs: build
-    runs-on: ubuntu-latest
+      needs: build
+      runs-on: ubuntu-latest
+      environment: dev
 
-    steps:
-      - uses: actions/checkout@v3
+      steps:
+        - uses: actions/checkout@v3
 
-      - name: Run tests
-        working-directory: ${{ env.WEB_APP_LOCATION }}
-        run: echo "Run tests"
+        - name: Setup Node
+          uses: actions/setup-node@v3
+        
+        - name: Install dependencies
+          shell: bash
+          working-directory: ${{ env.WEB_APP_TEST_LOCATION }}
+          run: |
+            npm ci
+
+        - name: Install Playwright
+          shell: bash
+          working-directory: ${{ env.WEB_APP_TEST_LOCATION }}
+          run: |
+            npx playwright install --with-deps
+
+        - name: Run tests
+          working-directory: ${{ env.WEB_APP_TEST_LOCATION }}
+          env:
+            BASE_URL: ${{vars.BASE_URL_RESTAURANT }}
+            API_BASE_URL: ${{ vars.API_BASE_URL_RESTAURANT }}
+            LOGIN_URL: ${{ vars.LOGIN_URL_RESTAURANT }}
+            LOGIN_USERNAME: ${{ secrets.TEST_LOGIN_USERNAME }}
+            LOGIN_PASSWORD: ${{ secrets.TEST_LOGIN_PASSWORD }}
+          run: npm run test
