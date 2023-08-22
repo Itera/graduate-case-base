@@ -31,7 +31,7 @@ export default defineConfig({
     extraHTTPHeaders: {
       Accept: 'application/json'
     },
-    video: 'on-first-retry'
+    video: 'on'
   },
 
   /* Configure projects for major browsers */
