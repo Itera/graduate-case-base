@@ -4,12 +4,22 @@ import { Guest, Room } from 'cms-types';
 import { useEffect } from 'react';
 import useAccessToken from '../auth/useAccessToken';
 import { useGet } from '../hooks/useGet';
+import { useNavigate } from 'react-router-dom';
+
+
+
 
 const Home = () => {
   const { accounts } = useMsal();
   const account = useAccount(accounts[0] || {});
   const accessToken = useAccessToken();
-
+  const navigate = useNavigate();
+  
+  
+  const navigateToTreatments = () => {
+    navigate('/treatments');;
+  };
+  
   const {
     data: guest,
     isLoading,
@@ -95,6 +105,7 @@ const Home = () => {
         fontWeight="bold"
         color="white"
         fontSize="l"
+        onClick={navigateToTreatments}
       >
         SPA
       </Button>
