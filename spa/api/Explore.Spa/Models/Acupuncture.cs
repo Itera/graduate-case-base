@@ -2,5 +2,5 @@ using System;
 
 namespace Explore.Spa.Models;
 
-public class Accupuncture : Treatment
+public class Acupuncture : Treatment
 {}
