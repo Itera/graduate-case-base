@@ -1,14 +1,24 @@
 import { useAccount, useMsal } from '@azure/msal-react';
-import { Box, Button, Flex, Heading, Text, Accordion, AccordionItem, AccordionButton, AccordionPanel, AccordionIcon, } from '@chakra-ui/react';
+import { Box, Button, Flex, Heading, Text, Accordion, AccordionItem, AccordionButton, AccordionPanel, AccordionIcon, Select, Image} from '@chakra-ui/react';
 import { Guest, Room } from 'cms-types';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import useAccessToken from '../auth/useAccessToken';
 import { useGet } from '../hooks/useGet';
+import hydrotherapyImage from '../assets/images/hydrotherapy.png';
+import mudbathImage from '../assets/images/mudbath.png';
 
 const TreatmentPage = () => {
   const { accounts } = useMsal();
   const account = useAccount(accounts[0] || {});
   const accessToken = useAccessToken();
+  const [isOpen, setIsOpen] = useState(false);
+  const [selectedTime, setSelectedTime] = useState('');
+
+  useEffect(() => {
+    if (!isOpen) {
+      setSelectedTime('');
+    }
+  }, [isOpen]);
 
   const {
     data: guest,
@@ -73,6 +83,40 @@ const TreatmentPage = () => {
     <h2>
       <AccordionButton>
         <Box as="span" flex='1' textAlign='left'>
+        Sauna
+        </Box>
+        <AccordionIcon />
+      </AccordionButton>
+    </h2>
+    <AccordionPanel pb={4}>
+    Step into the Sauna Sanctuary, a spacious haven that can accommodate up to 12 
+    visitors. Allow the dry heat to cleanse your body, ease muscle tension, and promote relaxation.
+    <Box p={1} fontWeight="bold">
+      Price: from $30 (per person)
+      </Box>
+      <Box p={1} fontWeight="bold">
+      Duration: 30 minutes
+      </Box>
+      <Box p={1} fontWeight="bold">
+      Where: Deck 11 - Wellness Deck
+      </Box>
+      <Select value={selectedTime}
+              onChange={(e) => setSelectedTime(e.target.value)} placeholder="Choose time">
+        <option value="24 Aug 15:00">24 Aug 15:00</option>
+        <option value="24 Aug 15:30">24 Aug 15:30</option>
+        <option value="24 Aug 16:00">24 Aug 16:00</option>
+        <option value="24 Aug 16:30">24 Aug 16:30</option>
+      </Select>
+    </AccordionPanel>
+  </AccordionItem>
+        <AccordionItem>
+    <h2>
+      <AccordionButton style={{
+          backgroundImage: `url(${mudbathImage})`,
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+        }}>
+        <Box as="span" flex='1' textAlign='left'>
           Mudbath
         </Box>
         <AccordionIcon />
@@ -90,18 +134,29 @@ const TreatmentPage = () => {
       <Box p={1} fontWeight="bold">
       Where: Deck 12 - Oasis Wing
       </Box>
+
+      <Select placeholder="Choose time">
+        <option value="24 Aug 15:00">24 Aug 15:00</option>
+        <option value="24 Aug 16:00">24 Aug 16:00</option>
+        <option value="24 Aug 17:00">24 Aug 17:00</option>
+        <option value="24 Aug 18:00">24 Aug 18:00</option>
+      </Select>
       
     </AccordionPanel>
   </AccordionItem>
 
   <AccordionItem>
     <h2>
-      <AccordionButton>
+      <AccordionButton style={{
+          backgroundImage: `url(${hydrotherapyImage})`,
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+        }}>
         <Box as="span" flex='1' textAlign='left'>
         Hydrotherapy
         </Box>
         <AccordionIcon />
-      </AccordionButton>
+      </AccordionButton >
     </h2>
     <AccordionPanel pb={4}>
     Immerse yourself in the therapeutic Hydrotherapy session, where a range of water-based treatments promotes relaxation, eases
@@ -115,6 +170,12 @@ const TreatmentPage = () => {
       <Box p={1} fontWeight="bold">
       Where: Deck 12 - Oasis Wing
       </Box>
+      <Select placeholder="Choose time">
+        <option value="24 Aug 15:00">24 Aug 15:00</option>
+        <option value="24 Aug 15:45">24 Aug 15:45</option>
+        <option value="24 Aug 16:30">24 Aug 16:30</option>
+        <option value="24 Aug 17:15">24 Aug 17:15</option>
+      </Select>
     </AccordionPanel>
   </AccordionItem>
   <AccordionItem>
@@ -138,6 +199,12 @@ const TreatmentPage = () => {
       <Box p={1} fontWeight="bold">
       Where: Deck 11 - Wellness Deck
       </Box>
+      <Select placeholder="Choose time">
+        <option value="24 Aug 15:00">24 Aug 15:00</option>
+        <option value="24 Aug 16:00">24 Aug 16:00</option>
+        <option value="24 Aug 17:00">24 Aug 17:00</option>
+        <option value="24 Aug 18:00">24 Aug 18:00</option>
+      </Select>
     </AccordionPanel>
   </AccordionItem>
   <AccordionItem>
@@ -161,29 +228,12 @@ const TreatmentPage = () => {
       <Box p={1} fontWeight="bold">
       Where: Deck 7 - Tranquility Plaza
       </Box>
-    </AccordionPanel>
-  </AccordionItem>
-  <AccordionItem>
-    <h2>
-      <AccordionButton>
-        <Box as="span" flex='1' textAlign='left'>
-        Sauna
-        </Box>
-        <AccordionIcon />
-      </AccordionButton>
-    </h2>
-    <AccordionPanel pb={4}>
-    Step into the Sauna Sanctuary, a spacious haven that can accommodate up to 12 
-    visitors. Allow the dry heat to cleanse your body, ease muscle tension, and promote relaxation.
-    <Box p={1} fontWeight="bold">
-      Price: from $30 (per person)
-      </Box>
-      <Box p={1} fontWeight="bold">
-      Duration: 30 minutes
-      </Box>
-      <Box p={1} fontWeight="bold">
-      Where: Deck 11 - Wellness Deck
-      </Box>
+      <Select placeholder="Choose time">
+        <option value="24 Aug 15:00">24 Aug 15:00</option>
+        <option value="24 Aug 16:00">24 Aug 16:00</option>
+        <option value="24 Aug 17:00">24 Aug 17:00</option>
+        <option value="24 Aug 18:00">24 Aug 18:00</option>
+      </Select>
     </AccordionPanel>
   </AccordionItem>
         </Accordion>
