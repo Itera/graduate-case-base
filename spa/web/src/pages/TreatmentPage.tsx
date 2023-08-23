@@ -73,16 +73,24 @@ const TreatmentPage = () => {
     <h2>
       <AccordionButton>
         <Box as="span" flex='1' textAlign='left'>
-          Section 1 title
+          Mudbath
         </Box>
         <AccordionIcon />
       </AccordionButton>
     </h2>
     <AccordionPanel pb={4}>
-      Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-      tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
-      veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-      commodo consequat.
+    Experience the ultimate rejuvenation with our signature Mudbath. Indulge in the healing properties of natural mud 
+    as it's applied as a mask for your face or as a treatment for your entire body.
+    <Box p={1} fontWeight="bold">
+      Price: $75
+      </Box>
+      <Box p={1} fontWeight="bold">
+      Duration: 30 minutes to 60 minutes
+      </Box>
+      <Box p={1} fontWeight="bold">
+      Where: Deck 12 - Oasis Wing
+      </Box>
+      
     </AccordionPanel>
   </AccordionItem>
 
@@ -90,16 +98,92 @@ const TreatmentPage = () => {
     <h2>
       <AccordionButton>
         <Box as="span" flex='1' textAlign='left'>
-          Section 2 title
+        Hydrotherapy
         </Box>
         <AccordionIcon />
       </AccordionButton>
     </h2>
     <AccordionPanel pb={4}>
-      Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-      tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
-      veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-      commodo consequat.
+    Immerse yourself in the therapeutic Hydrotherapy session, where a range of water-based treatments promotes relaxation, eases
+    muscle tension, and enhances circulation.
+    <Box p={1} fontWeight="bold">
+      Price: from $60
+      </Box>
+      <Box p={1} fontWeight="bold">
+      Duration: 45 minutes
+      </Box>
+      <Box p={1} fontWeight="bold">
+      Where: Deck 12 - Oasis Wing
+      </Box>
+    </AccordionPanel>
+  </AccordionItem>
+  <AccordionItem>
+    <h2>
+      <AccordionButton>
+        <Box as="span" flex='1' textAlign='left'>
+        Massage
+        </Box>
+        <AccordionIcon />
+      </AccordionButton>
+    </h2>
+    <AccordionPanel pb={4}>
+    Choose between a luxurious Full Body Massage for overall relaxation or a targeted Spot Massage to address 
+    specific areas of tension. Our skilled therapists will tailor the treatment to your preferences.
+    <Box p={1} fontWeight="bold">
+      Price: from $85
+      </Box>
+      <Box p={1} fontWeight="bold">
+      Duration: 60 minutes (Full Body), 30 minutes (Spot)
+      </Box>
+      <Box p={1} fontWeight="bold">
+      Where: Deck 11 - Wellness Deck
+      </Box>
+    </AccordionPanel>
+  </AccordionItem>
+  <AccordionItem>
+    <h2>
+      <AccordionButton>
+        <Box as="span" flex='1' textAlign='left'>
+        Acupuncture
+        </Box>
+        <AccordionIcon />
+      </AccordionButton>
+    </h2>
+    <AccordionPanel pb={4}>
+    Experience the ancient art of Acupuncture, a practice that stimulates specific points on the body to 
+    promote energy flow and balance. This holistic therapy offers numerous potential benefits.
+    <Box p={1} fontWeight="bold">
+      Price: from $70
+      </Box>
+      <Box p={1} fontWeight="bold">
+      Duration: 60 minutes
+      </Box>
+      <Box p={1} fontWeight="bold">
+      Where: Deck 7 - Tranquility Plaza
+      </Box>
+    </AccordionPanel>
+  </AccordionItem>
+  <AccordionItem>
+    <h2>
+      <AccordionButton>
+        <Box as="span" flex='1' textAlign='left'>
+        Sauna
+        </Box>
+        <AccordionIcon />
+      </AccordionButton>
+    </h2>
+    <AccordionPanel pb={4}>
+    Step into the Sauna Sanctuary, a spacious haven that can accommodate up to 12 
+    visitors. Allow the dry heat to cleanse your body, ease muscle tension, and promote relaxation.
+    <Box p={1} fontWeight="bold">
+      Price: from $30 (per person)
+      </Box>
+      <Box p={1} fontWeight="bold">
+      Duration: 30 minutes
+      </Box>
+      <Box p={1} fontWeight="bold">
+      Where: Deck 11 - Wellness Deck
+      </Box>
     </AccordionPanel>
   </AccordionItem>
         </Accordion>
