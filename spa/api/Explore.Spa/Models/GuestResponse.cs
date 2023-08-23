@@ -1,5 +1,3 @@
-using System;
-
 namespace Explore.Spa.Models;
 
 public class GuestResponse : Entity
