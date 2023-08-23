@@ -6,10 +6,10 @@ using Explore.Spa.Helpers.Http;
 using Explore.Spa.Models;
 using Explore.Spa.Services;
 using Explore.Spa.Validation.GuestValidators;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Azure.WebJobs;
 using Microsoft.Azure.WebJobs.Extensions.Http;
-using Microsoft.AspNetCore.Http;
 using Microsoft.Azure.WebJobs.Extensions.OpenApi.Core.Attributes;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
@@ -37,7 +37,7 @@ public class GuestFunction
         Description = "Bad request response when the request is not valid")]
     [OpenApiResponseWithoutBody(HttpStatusCode.BadGateway, Summary = "Bad gateway response",
         Description = "Bad gateway response when the api could not correctly forward the request")]
-    public async Task<IActionResult> GetGuestAsync(
+    public async Task<IActionResult> RunAsync(
         [HttpTrigger(AuthorizationLevel.Anonymous, "post", Route = "guests")] HttpRequest req)
     {
         try
@@ -73,10 +73,7 @@ public class GuestFunction
     {
         try
         {
-            var isParsed = Guid.TryParse(id, out var parsedGuid);
-            if (!isParsed) throw new ValidationException("Id is not a valid guid");
-            
-            var response = await _cmsService.GetGuestByIdAsync(parsedGuid);
+            var response = await _cmsService.GetGuestByIdAsync(Guid.Parse(id));
             
             return new OkObjectResult(response);
         }
