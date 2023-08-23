@@ -1,0 +1,38 @@
+name: Build and test excursion web
+run-name: Build and test excursion web
+
+on:
+  workflow_dispatch:
+  pull_request:
+    branches: [main]
+    paths:
+      - 'excursion/web/**'
+      - .github/workflows/build-and-test-webapp-excursion.yaml
+      - .github/actions/build-web-app/**
+
+env:
+  WEB_APP_LOCATION: excursion/web
+  WEB_APP_TEST_LOCATION: excursion/test
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Setup Node
+        uses: actions/setup-node@v3
+
+      - name: Install dependencies
+        shell: bash
+        working-directory: ${{ env.WEB_APP_LOCATION }}
+        run: |
+          npm ci
+
+      - name: Build project
+        shell: bash
+        working-directory: ${{ env.WEB_APP_LOCATION }}
+        run: |
+          npm run build
+        
