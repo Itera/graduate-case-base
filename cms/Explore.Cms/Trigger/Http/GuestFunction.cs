@@ -139,6 +139,8 @@ public class GuestFunction
         }
         catch (MongoWriteException e)
         {
+            await _roomService.RemoveGuestFromRoom(guest.RoomId, guest.Id);
+            
             _logger.LogError(e, "Could not create guest");
             return new ConflictObjectResult($"Could not create guest {guest.Id}. Reason: {e.WriteError.Category}");
         }

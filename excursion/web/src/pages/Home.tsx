@@ -1,67 +1,61 @@
-import {
-  useAccount,
-  useMsal,
-} from '@azure/msal-react';
-import {
-  Box,
-  Button,
-  Flex,
-  Heading,
-  Text,
-  Tooltip,
-} from '@chakra-ui/react';
+import { useAccount, useMsal } from '@azure/msal-react';
+import { Box, Button, Flex, Heading, Text, Tooltip } from '@chakra-ui/react';
 import { Guest, Room } from 'cms-types';
 import { useEffect } from 'react';
 import useAccessToken from '../auth/useAccessToken';
 import { useGet } from '../hooks/useGet';
-import usePost from '../hooks/usePost';
 
 const Home = () => {
   const { accounts } = useMsal();
   const account = useAccount(accounts[0] || {});
   const accessToken = useAccessToken();
-  
+
   const {
     data: guest,
     isLoading,
-    isError,
-    mutate,
+    mutate
   } = useGet<Guest>(`/guests/${account?.localAccountId}`);
 
-  const { 
-    data: room,
-  } = useGet<Room>(`/rooms/${guest?.roomId}`, guest?.roomId != undefined)
+  const { data: room } = useGet<Room>(
+    `/rooms/${guest?.roomId}`,
+    guest?.roomId != undefined && guest?.roomId != ''
+  );
 
-  const post = usePost();
 
   useEffect(() => {
     if (isLoading) return;
-    
+
     const checkAndCreateGuest = async () => {
-      if (!isLoading && guest?.id == "" && account) {
+      if (guest?.id == '' && account) {
         const newGuestData = {
           firstName: account?.name?.split(' ').slice(0, -1).join(' '),
           lastName: account?.name?.split(' ').slice(-1).join(' '),
           id: account?.localAccountId,
-          email: account?.username,
+          email: account?.username
         };
 
-        const newGuest = await post('/guests', newGuestData).then((response) => { 
-          if (!response.ok) {
-            return { id: "", firstName: "", lastName: "" };
-          }
-          return response.json();
-        }).catch((e) => {
-          console.log(e);
-          return { id: "", firstName: "", lastName: "" };
-        });
+        try {
+          const response = await fetch(import.meta.env.VITE_API_BASE_URL + "/guests", {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              Authorization: `Bearer ${accessToken}`
+            },
+            body: JSON.stringify(newGuestData)
+          });
 
-        mutate(newGuest, false);
+          const createdGuest = await response.json();
+
+          mutate(createdGuest, false);
+        }
+        catch (e) {
+          console.log(e);
+        }
       }
     };
 
     checkAndCreateGuest();
-  }, [isLoading, guest, account, mutate, post, isError]);
+  }, [guest, account, accessToken, mutate, isLoading]);
 
   return (
     <Flex
@@ -80,15 +74,15 @@ const Home = () => {
             ? 'Hang on, we are creating a guest account for you...'
             : room && room.roomNumber == ''
             ? 'Hang on, your room is not ready yet...'
-              : 'Your room number is ' + room?.roomNumber}
+            : 'Your room number is ' + room?.roomNumber}
         </Text>
-          <Box>  
+        <Box>
           {accessToken &&
             CopyToClipboardButton(
               accessToken,
               'Copy access token to clipboard'
             )}
-          </Box>
+        </Box>
       </Box>
     </Flex>
   );
@@ -118,6 +112,6 @@ const CopyToClipboardButton = (text: string, label?: string) => {
       </Button>
     </Tooltip>
   );
-}
+};
 
 export default Home;
