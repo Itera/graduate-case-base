@@ -5,7 +5,7 @@ import { useEffect } from 'react';
 import useAccessToken from '../auth/useAccessToken';
 import { useGet } from '../hooks/useGet';
 
-const Home = () => {
+const TreatmentPage = () => {
   const { accounts } = useMsal();
   const account = useAccount(accounts[0] || {});
   const accessToken = useAccessToken();
@@ -15,11 +15,6 @@ const Home = () => {
     isLoading,
     mutate
   } = useGet<Guest>(`/guests/${account?.localAccountId}`);
-
-  const { data: room } = useGet<Room>(
-    `/rooms/${guest?.roomId}`,
-    guest?.roomId != undefined && guest?.roomId != ''
-  );
 
   useEffect(() => {
     if (isLoading) return;
@@ -68,65 +63,11 @@ const Home = () => {
     >
       <Box m="0 auto">
         <Heading as="h1" textAlign="center" fontSize="5xl" mt="100px">
-          Welcome, {account?.name}!
+          What treatments would you like to book, {account?.name}?
         </Heading>
-        <Text fontSize="xl" textAlign="center" mt="30px">
-          {guest && guest.id == ''
-            ? 'Hang on, we are creating a guest account for you...'
-            : room && room.roomNumber == ''
-            ? 'Hang on, your room is not ready yet...'
-            : 'Your room number is ' + room?.roomNumber}
-        </Text>
-        <Box>
-          {accessToken &&
-            CopyToClipboardButton(
-              accessToken,
-              'Copy access token to clipboard'
-            )}
-        </Box>
-        <Button
-        w="fit-content"
-        p="10"
-        px="100px"
-        colorScheme="blue"
-        borderRadius="10px"
-        m="0 auto"
-        mt="8"
-        fontWeight="bold"
-        color="white"
-        fontSize="l"
-      >
-        SPA
-      </Button>
       </Box>
     </Flex>
   );
 };
 
-const CopyToClipboardButton = (text: string, label?: string) => {
-  const copyToClipboard = () => {
-    navigator.clipboard.writeText(text);
-  };
-
-  return (
-    <Tooltip label={label ?? 'Copy to clipboard'}>
-      <Button
-        w="fit-content"
-        p="4"
-        px="4px"
-        colorScheme="blue"
-        borderRadius="10px"
-        m="0 auto"
-        mt="8"
-        fontWeight="bold"
-        color="white"
-        fontSize="l"
-        onClick={copyToClipboard}
-      >
-        📄
-      </Button>
-    </Tooltip>
-  );
-};
-
-export default Home;
+export default TreatmentPage;
