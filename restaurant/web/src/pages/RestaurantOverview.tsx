@@ -1,5 +1,4 @@
 import {
-  Flex,
   Box,
   Card,
   Text,
@@ -10,20 +9,22 @@ import {
   Button,
   Heading,
   Link as ChakraLink,
-  LinkProps
 } from '@chakra-ui/react';
 import { Link as ReactRouterLink } from 'react-router-dom';
+import theme from "../theme";
 
 const RestaurantOverview = () => {
   return (
-    <Flex
-      width="100vw"
-      height="100vh"
+    <Stack
+      direction="column" 
+      align="center"
       alignContent="center"
       justifyContent="center"
-      backgroundColor="#f0f0f0"
+      backgroundColor={theme.colors['explore-light-blue'].main}
     >
-      <Box>
+      <Box 
+        height='100%'
+      >
         <ChakraLink as={ReactRouterLink} to="/restaurant">
           <Card
             p={6}
@@ -164,7 +165,7 @@ const RestaurantOverview = () => {
           </Card>
         </ChakraLink>
       </Box>
-    </Flex>
+    </Stack>
   );
 };
 

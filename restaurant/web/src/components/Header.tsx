@@ -14,7 +14,6 @@ import {
   Stack,
   Text,
   Link as ChakraLink,
-  LinkProps
 } from '@chakra-ui/react';
 import { HamburgerIcon, CloseIcon } from '@chakra-ui/icons';
 import { Link as ReactRouterLink } from 'react-router-dom';
