@@ -1,0 +1,18 @@
+[
+    {
+        "name": "The Arctic Penguin",
+        "description": "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Arecusandae neque, velit praesentium numquam ducimus totam atque illo nam qui!"
+    },
+    {
+        "name": "The South Pole",
+        "description": "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Arecusandae neque, velit praesentium numquam ducimus totam atque illo nam qui!"
+    },
+    {
+        "name": "The North Pole",
+        "description": "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Arecusandae neque, velit praesentium numquam ducimus totam atque illo nam qui!"
+    },
+    {
+        "name": "Glacier",
+        "description": "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Arecusandae neque, velit praesentium numquam ducimus totam atque illo nam qui!"
+    }
+]

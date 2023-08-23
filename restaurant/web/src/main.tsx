@@ -7,7 +7,7 @@ import App from './App.tsx';
 import authInstance from './auth/AuthInstance.tsx';
 import ProtectedRoutes from './auth/ProtectedRoute.tsx';
 import theme from './theme';
-
+import SimpleNav from './components/Header.tsx';
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <React.StrictMode>
@@ -15,6 +15,7 @@ ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
       <MsalProvider instance={authInstance}>
         <ProtectedRoutes>
           <BrowserRouter>
+            <SimpleNav />
             <App />
           </BrowserRouter>
         </ProtectedRoutes>
