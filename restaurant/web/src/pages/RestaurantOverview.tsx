@@ -45,8 +45,8 @@ const RestaurantOverview = () => {
             </CardBody>
 
             <CardFooter>
-              <Button variant="solid" colorScheme="blue">
-                Book here
+              <Button variant="outline" color="#FFB46D">
+                Book
               </Button>
             </CardFooter>
           </Stack>
@@ -76,8 +76,8 @@ const RestaurantOverview = () => {
             </CardBody>
 
             <CardFooter>
-              <Button variant="solid" colorScheme="blue">
-                Book here
+              <Button variant="outline" color="#FFB46D">
+                Book
               </Button>
             </CardFooter>
           </Stack>
@@ -107,8 +107,8 @@ const RestaurantOverview = () => {
             </CardBody>
 
             <CardFooter>
-              <Button variant="solid" colorScheme="blue">
-                Book here
+              <Button variant="outline" color="#FFB46D">
+                Book
               </Button>
             </CardFooter>
           </Stack>
@@ -138,8 +138,8 @@ const RestaurantOverview = () => {
             </CardBody>
 
             <CardFooter>
-              <Button variant="solid" colorScheme="blue">
-                Book here
+              <Button variant="outline" color="#FFB46D">
+                Book
               </Button>
             </CardFooter>
           </Stack>
