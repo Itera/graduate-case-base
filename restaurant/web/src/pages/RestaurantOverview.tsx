@@ -26,6 +26,8 @@ const RestaurantOverview = () => {
       <Box>
         <ChakraLink as={ReactRouterLink} to="/restaurant">
           <Card
+            p={6}
+            m={8}
             direction={{ base: 'column', sm: 'row' }}
             overflow="hidden"
             variant="outline"
@@ -59,6 +61,8 @@ const RestaurantOverview = () => {
 
         <ChakraLink as={ReactRouterLink} to="/restaurant">
           <Card
+            p={6}
+            m={8}
             direction={{ base: 'column', sm: 'row' }}
             overflow="hidden"
             variant="outline"
@@ -92,6 +96,8 @@ const RestaurantOverview = () => {
 
         <ChakraLink as={ReactRouterLink} to="/restaurant">
           <Card
+            p={6}
+            m={8}
             direction={{ base: 'column', sm: 'row' }}
             overflow="hidden"
             variant="outline"
@@ -125,6 +131,8 @@ const RestaurantOverview = () => {
 
         <ChakraLink as={ReactRouterLink} to="/restaurant">
           <Card
+            p={6}
+            m={8}
             direction={{ base: 'column', sm: 'row' }}
             overflow="hidden"
             variant="outline"
