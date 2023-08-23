@@ -1,11 +1,12 @@
 import { useAccount, useMsal } from '@azure/msal-react';
-import { Box, Button, Flex, Heading, Text, Tooltip } from '@chakra-ui/react';
+import { Box, Button, Flex, Heading, Link, Text, Tooltip } from '@chakra-ui/react';
 import { Guest, Room } from 'cms-types';
 import { useEffect } from 'react';
 import useAccessToken from '../auth/useAccessToken';
 import { useGet } from '../hooks/useGet';
+import { Link as ReactLink } from 'react-router-dom';
 
-const Home = () => {
+const Home = () => {  
   const { accounts } = useMsal();
   const account = useAccount(accounts[0] || {});
   const accessToken = useAccessToken();
@@ -84,6 +85,7 @@ const Home = () => {
               'Copy access token to clipboard'
             )}
         </Box>
+        <Link as={ReactLink} to="/restaurant"><Button variant='solid' colorScheme='blue'> Restaurant</Button></Link>
       </Box>
     </Flex>
   );
@@ -95,7 +97,9 @@ const CopyToClipboardButton = (text: string, label?: string) => {
   };
 
   return (
+
     <Tooltip label={label ?? 'Copy to clipboard'}>
+
       <Button
         w="fit-content"
         p="4"
@@ -108,7 +112,7 @@ const CopyToClipboardButton = (text: string, label?: string) => {
         color="white"
         fontSize="l"
         onClick={copyToClipboard}
-      >
+        >
         📄
       </Button>
     </Tooltip>

@@ -1,0 +1,40 @@
+{
+    "courses": [
+      {
+        "title": "Roasted Butternut Squash Soup",
+        "description": "A creamy soup made with roasted butternut squash, onions, garlic and vegetable broth. Served with a side of crusty bread.",
+        "allergies": "nuts",
+        "picture": "https://www.cookingclassy.com/wp-content/uploads/2018/08/butternut-squash-soup-2.jpg",
+        "price": 15.99
+      },
+      {
+        "title": "Pan-Seared Salmon with Lemon Butter Sauce",
+        "description": "A delicious salmon fillet pan-seared to perfection and served with a tangy lemon butter sauce. Served with a side of roasted vegetables.",
+        "allergies": "fish",
+        "picture": "https://th.bing.com/th/id/OIP.ahFs2tJ6TsWbpgN6A6eI_gHaLH?pid=ImgDet&rs=1",
+        "price": 19.99
+      },
+      {
+        "title": "Wild Mushroom Risotto",
+        "description": "A creamy risotto made with wild mushrooms, arborio rice, onions and vegetable broth. Topped with shaved parmesan cheese.",
+        "allergies": "mushrooms",
+        "picture": "https://i1.wp.com/chezlerevefrancais.com/wp-content/uploads/2017/10/WILD-MUSHROOM-RISOTTO-2.jpg",
+        "price": 17.99
+      },
+      {
+        "title": "Grilled Ribeye Steak with Chimichurri Sauce",
+        "description": "A juicy ribeye steak grilled to perfection and served with a tangy chimichurri sauce. Served with a side of garlic mashed potatoes.",
+        "allergies": "meat",
+        "picture": "https://earlebrown.com/the-chef-experience/wp-content/uploads/2021/03/ribeye-steak-768x512.jpg",
+        "price": 23.99
+      },
+      {
+        "title": "Crispy Fried Calamari",
+        "description": "A crispy fried calamari dish served with a side of marinara sauce and lemon wedges.",
+        "allergies": "fish",
+        "picture": "https://www.willcookforsmiles.com/wp-content/uploads/2021/07/Calamari-5.jpg",
+        "price": 21.99
+      }
+    ]
+  }
+  
