@@ -1,9 +1,11 @@
 import { useAccount, useMsal } from '@azure/msal-react';
-import { Box, Flex, Heading, Accordion, AccordionItem, AccordionButton, AccordionPanel, AccordionIcon, Select} from '@chakra-ui/react';
+import { Box, Button, Flex, Heading, Accordion, AccordionItem, AccordionButton, AccordionPanel, AccordionIcon, Select} from '@chakra-ui/react';
 import { Guest } from 'cms-types';
 import { useEffect, useState } from 'react';
 import useAccessToken from '../auth/useAccessToken';
 import { useGet } from '../hooks/useGet';
+import { useNavigate } from 'react-router-dom';
+// import { theme } from '../theme';
 import hydrotherapyImage from '../assets/images/hydrotherapy.png';
 import mudbathImage from '../assets/images/mudbath.png';
 import saunaImage from '../assets/images/sauna.png';
@@ -16,6 +18,11 @@ const TreatmentPage = () => {
   const accessToken = useAccessToken();
   const [isOpen] = useState(false);
   const [selectedTime, setSelectedTime] = useState('');
+  const navigate = useNavigate();
+
+  const navigateToConfirmation = () => {
+    navigate('/confirmation');
+  };
 
   useEffect(() => {
     if (!isOpen) {
@@ -81,7 +88,7 @@ const TreatmentPage = () => {
         </Heading>
       </Box>
       <Box m="0 auto" p={4} marginTop={4}>
-        <Accordion>
+      <Accordion>
         <AccordionItem>
     <h2>
       <AccordionButton style={{
@@ -117,6 +124,19 @@ const TreatmentPage = () => {
         <option value="24 Aug 16:00">24 Aug 16:00</option>
         <option value="24 Aug 16:30">24 Aug 16:30</option>
       </Select>
+      <Box p={2}></Box>
+      <Button
+      w="fit-content"
+      p="7"
+      px="50px"
+      colorScheme="explore-blue"
+      borderRadius="10px"
+      m="0 auto"
+      mt="8"
+      fontWeight="bold"
+      fontSize="l"
+      onClick={navigateToConfirmation}
+      >Book</Button>
     </AccordionPanel>
   </AccordionItem>
         <AccordionItem>
