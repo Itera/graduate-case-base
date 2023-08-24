@@ -1,0 +1,40 @@
+{
+    "bookings": [
+      {
+        "booking_type": "spa_treatment",
+        "treatment_name": "Arctic Stone Massage",
+        "day": "Monday",
+        "time": "10:00 AM"
+      },
+      {
+        "booking_type": "excursion",
+        "excursion_name": "Glacier Kayaking Adventure",
+        "day": "Tuesday",
+        "time": "2:00 PM"
+      },
+      {
+        "booking_type": "fine_dining",
+        "restaurant_name": "The Arctic Penguin",
+        "day": "Wednesday",
+        "time": "8:00 PM"
+      },
+      {
+        "booking_type": "spa_treatment",
+        "treatment_name": "Arctic Seaweed Body Wrap",
+        "day": "Thursday",
+        "time": "3:00 PM"
+      },
+      {
+        "booking_type": "excursion",
+        "excursion_name": "Iceberg Whale Watching",
+        "day": "Friday",
+        "time": "6:00 PM"
+      },
+      {
+        "booking_type": "fine_dining",
+        "restaurant_name": "The Arctic Penguin",
+        "day": "Saturday",
+        "time": "7:30 PM"
+      }
+    ]
+  }
