@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import {
   Box,
   FormControl,
@@ -77,7 +77,7 @@ const ReserveTable = () => {
           <NumberInput
             min={1}
             value={partySize}
-            onChange={(value) => setPartySize(value)}
+            onChange={(_, value) => setPartySize(value)}
           >
             <NumberInputField />
           </NumberInput>
