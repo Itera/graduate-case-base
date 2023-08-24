@@ -1,29 +1,25 @@
 import React, { useState } from 'react';
 import {
-  TableContainer,
-  Table,
-  Thead,
-  Tr,
-  Th,
-  Td,
-  Tbody,
   AlertDialog,
   AlertDialogBody,
   AlertDialogFooter,
   AlertDialogHeader,
   AlertDialogContent,
   AlertDialogOverlay,
+  Box,
   Button,
+  Table,
+  Tbody,
+  Td,
+  Th,
+  Thead,
+  Tr,
 } from '@chakra-ui/react';
 import { CloseIcon } from '@chakra-ui/icons';
+import bookingsData from '../dataMocks/bookings.json';
 
 const MyBookings = () => {
-  const [bookings, setBookings] = useState([
-    { time: '08:45', activity: 'Spa' },
-    { time: '15:40', activity: 'Fishing Trip' },
-    { time: '19:00', activity: 'Dinner at Glacier' },
-  ]);
-
+  const [bookings, setBookings] = useState(bookingsData.bookings);
   const [isAlertDialogOpen, setIsAlertDialogOpen] = useState(false);
   const [bookingToCancel, setBookingToCancel] = useState<number | null>(null);
 
@@ -42,13 +38,15 @@ const MyBookings = () => {
   };
 
   const cancelRef: React.RefObject<HTMLButtonElement> = React.useRef(null);
+
   return (
     <>
-      <TableContainer>
+      <Box width="100%" overflowX="auto">
         <Table variant="striped" colorScheme="blue">
           <Thead>
             <Tr>
               <Th>Time</Th>
+              <Th>Day</Th>
               <Th>Activity</Th>
               <Th>Cancel booking</Th>
             </Tr>
@@ -57,15 +55,24 @@ const MyBookings = () => {
             {bookings.map((booking, index) => (
               <Tr key={index}>
                 <Td>{booking.time}</Td>
-                <Td>{booking.activity}</Td>
+                <Td>{booking.day}</Td>
                 <Td>
-                  <CloseIcon cursor="pointer" onClick={() => deleteRow(index)} />
+                  {booking.booking_type} -{' '}
+                  {booking.treatment_name ||
+                    booking.restaurant_name ||
+                    booking.excursion_name}
+                </Td>
+                <Td>
+                  <CloseIcon
+                    cursor="pointer"
+                    onClick={() => deleteRow(index)}
+                  />
                 </Td>
               </Tr>
             ))}
           </Tbody>
         </Table>
-      </TableContainer>
+      </Box>
 
       <AlertDialog
         isOpen={isAlertDialogOpen}
