@@ -1,6 +1,6 @@
 import { useAccount, useMsal } from '@azure/msal-react';
-import { Box, Button, Flex, Heading, Text, Accordion, AccordionItem, AccordionButton, AccordionPanel, AccordionIcon, Select, Image} from '@chakra-ui/react';
-import { Guest, Room } from 'cms-types';
+import { Box, Flex, Heading, Accordion, AccordionItem, AccordionButton, AccordionPanel, AccordionIcon, Select} from '@chakra-ui/react';
+import { Guest } from 'cms-types';
 import { useEffect, useState } from 'react';
 import useAccessToken from '../auth/useAccessToken';
 import { useGet } from '../hooks/useGet';
@@ -14,7 +14,7 @@ const TreatmentPage = () => {
   const { accounts } = useMsal();
   const account = useAccount(accounts[0] || {});
   const accessToken = useAccessToken();
-  const [isOpen, setIsOpen] = useState(false);
+  const [isOpen] = useState(false);
   const [selectedTime, setSelectedTime] = useState('');
 
   useEffect(() => {
