@@ -1,5 +1,5 @@
 import { useAccount, useMsal } from '@azure/msal-react';
-import { Box, Button, Flex, Heading, Text } from '@chakra-ui/react';
+import {Box, Card, CardBody, CardHeader, Flex, Heading, Stack, StackDivider, Text} from '@chakra-ui/react';
 import { Guest, Room } from 'cms-types';
 import { useEffect } from 'react';
 import useAccessToken from '../auth/useAccessToken';
@@ -69,30 +69,40 @@ const ConfirmationPage = () => {
       backgroundColor="#f0f0f0"
     >
       <Box m="0 auto">
-        <Heading as="h1" textAlign="center" fontSize="5xl" mt="100px">
-          Welcome, {account?.name}!
-        </Heading>
-        <Text fontSize="xl" textAlign="center" mt="30px">
-          {guest && guest.id == ''
-            ? 'Hang on, we are creating a guest account for you...'
-            : room && room.roomNumber == ''
-            ? 'Hang on, your room is not ready yet...'
-            : 'Your room number is ' + room?.roomNumber}
-        </Text>
-        <Button
-        w="fit-content"
-        p="10"
-        px="100px"
-        colorScheme="blue"
-        borderRadius="10px"
-        m="0 auto"
-        mt="8"
-        fontWeight="bold"
-        color="white"
-        fontSize="l"
-      >
-        CONFIRMATION PAGE {location.state.time} and {location.state.treatment} 
-      </Button>
+        <Card>
+          <CardHeader>
+            <Heading size='md'>Order Confirmation {room?.roomNumber}</Heading>
+          </CardHeader>
+
+          <CardBody>
+            <Stack divider={<StackDivider />} spacing='4'>
+              <Box>
+                <Heading size='xs' textTransform='uppercase'>
+                  Treatment
+                </Heading>
+                <Text pt='2' fontSize='sm'>
+                  You have booked a session in {location.state.treatment}
+                </Text>
+              </Box>
+              <Box>
+                <Heading size='xs' textTransform='uppercase'>
+                  Place
+                </Heading>
+                <Text pt='2' fontSize='sm'>
+                  Check out the place of treatment
+                </Text>
+              </Box>
+              <Box>
+                <Heading size='xs' textTransform='uppercase'>
+                  Time
+                </Heading>
+                <Text pt='2' fontSize='sm'>
+                  Your treatment is scheduled to start {location.state.time}
+                </Text>
+              </Box>
+            </Stack>
+          </CardBody>
+        </Card>
       </Box>
     </Flex>
   );
