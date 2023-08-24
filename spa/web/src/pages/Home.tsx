@@ -4,12 +4,22 @@ import { Guest, Room } from 'cms-types';
 import { useEffect } from 'react';
 import useAccessToken from '../auth/useAccessToken';
 import { useGet } from '../hooks/useGet';
+import { useNavigate } from 'react-router-dom';
+
+
+
 
 const Home = () => {
   const { accounts } = useMsal();
   const account = useAccount(accounts[0] || {});
   const accessToken = useAccessToken();
-
+  const navigate = useNavigate();
+  
+  
+  const navigateToTreatments = () => {
+    navigate('/treatments');;
+  };
+  
   const {
     data: guest,
     isLoading,
@@ -84,6 +94,21 @@ const Home = () => {
               'Copy access token to clipboard'
             )}
         </Box>
+        <Button
+        w="fit-content"
+        p="10"
+        px="100px"
+        colorScheme="blue"
+        borderRadius="10px"
+        m="0 auto"
+        mt="8"
+        fontWeight="bold"
+        color="white"
+        fontSize="l"
+        onClick={navigateToTreatments}
+      >
+        SPA
+      </Button>
       </Box>
     </Flex>
   );
