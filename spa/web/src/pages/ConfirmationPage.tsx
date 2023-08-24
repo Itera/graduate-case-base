@@ -4,11 +4,13 @@ import { Guest, Room } from 'cms-types';
 import { useEffect } from 'react';
 import useAccessToken from '../auth/useAccessToken';
 import { useGet } from '../hooks/useGet';
+import { useLocation } from 'react-router-dom'
 
 const ConfirmationPage = () => {
   const { accounts } = useMsal();
   const account = useAccount(accounts[0] || {});
   const accessToken = useAccessToken();
+  const location = useLocation();
   
   const {
     data: guest,
@@ -89,7 +91,7 @@ const ConfirmationPage = () => {
         color="white"
         fontSize="l"
       >
-        CONFIRMATION PAGE
+        CONFIRMATION PAGE {location.state.time} and {location.state.treatment} 
       </Button>
       </Box>
     </Flex>
