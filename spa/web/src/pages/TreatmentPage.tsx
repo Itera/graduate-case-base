@@ -5,7 +5,6 @@ import { useEffect, useState } from 'react';
 import useAccessToken from '../auth/useAccessToken';
 import { useGet } from '../hooks/useGet';
 import { useNavigate } from 'react-router-dom';
-// import { theme } from '../theme';
 import hydrotherapyImage from '../assets/images/hydrotherapy.png';
 import mudbathImage from '../assets/images/mudbath.png';
 import saunaImage from '../assets/images/sauna.png';
@@ -18,10 +17,19 @@ const TreatmentPage = () => {
   const accessToken = useAccessToken();
   const [isOpen] = useState(false);
   const [selectedTime, setSelectedTime] = useState('');
+  const [selectedTreatment, setSelectedTreatment] = useState('');
   const navigate = useNavigate();
 
   const navigateToConfirmation = () => {
-    navigate('/confirmation');
+    // Check if time and treatment is selected
+    if (selectedTime != "" && selectedTreatment != "") {
+      navigate('/confirmation', {state: {time: selectedTime, treatment: selectedTreatment}});
+    }
+  };
+
+  const changeTreatment = (treatment: string) => {
+    setSelectedTime('')
+    setSelectedTreatment(treatment);
   };
 
   useEffect(() => {
@@ -95,7 +103,8 @@ const TreatmentPage = () => {
           backgroundImage: `url(${saunaImage})`,
           backgroundSize: 'cover',
           backgroundPosition: 'center',
-        }}>
+        }}
+        onClick={() => changeTreatment("Sauna")}>
         <Box as="span" flex='1' textAlign='left' color="white">
         Sauna
         </Box>
@@ -145,7 +154,9 @@ const TreatmentPage = () => {
           backgroundImage: `url(${mudbathImage})`,
           backgroundSize: 'cover',
           backgroundPosition: 'center',
-        }}>
+          
+        }}
+        onClick={() => changeTreatment("Mudbath")}>
         <Box as="span" flex='1' textAlign='left' color="white">
           Mudbath
         </Box>
@@ -167,12 +178,26 @@ const TreatmentPage = () => {
       <Box fontSize="sm">
         Please choose a time:
       </Box>
-      <Select placeholder="Choose time">
+      <Select value={selectedTime}
+              onChange={(e) => setSelectedTime(e.target.value)} placeholder="Choose time">
         <option value="24 Aug 15:00">24 Aug 15:00</option>
         <option value="24 Aug 16:00">24 Aug 16:00</option>
         <option value="24 Aug 17:00">24 Aug 17:00</option>
         <option value="24 Aug 18:00">24 Aug 18:00</option>
       </Select>
+      <Box p={2}></Box>
+      <Button
+      w="fit-content"
+      p="7"
+      px="50px"
+      colorScheme="explore-blue"
+      borderRadius="10px"
+      m="0 auto"
+      mt="8"
+      fontWeight="bold"
+      fontSize="l"
+      onClick={navigateToConfirmation}
+      >Book</Button>
       
     </AccordionPanel>
   </AccordionItem>
@@ -183,7 +208,9 @@ const TreatmentPage = () => {
           backgroundImage: `url(${hydrotherapyImage})`,
           backgroundSize: 'cover',
           backgroundPosition: 'center',
-        }}>
+        }}
+        
+        onClick={() => changeTreatment("Hydrotherapy")}>
         <Box as="span" flex='1' textAlign='left' color="white">
         Hydrotherapy
         </Box>
@@ -205,12 +232,26 @@ const TreatmentPage = () => {
       <Box fontSize="sm">
         Please choose a time:
       </Box>
-      <Select placeholder="Choose time">
+      <Select value={selectedTime}
+              onChange={(e) => setSelectedTime(e.target.value)} placeholder="Choose time">
         <option value="24 Aug 15:00">24 Aug 15:00</option>
         <option value="24 Aug 15:45">24 Aug 15:45</option>
         <option value="24 Aug 16:30">24 Aug 16:30</option>
         <option value="24 Aug 17:15">24 Aug 17:15</option>
       </Select>
+      <Box p={2}></Box>
+      <Button
+      w="fit-content"
+      p="7"
+      px="50px"
+      colorScheme="explore-blue"
+      borderRadius="10px"
+      m="0 auto"
+      mt="8"
+      fontWeight="bold"
+      fontSize="l"
+      onClick={navigateToConfirmation}
+      >Book</Button>
     </AccordionPanel>
   </AccordionItem>
   <AccordionItem>
@@ -219,7 +260,8 @@ const TreatmentPage = () => {
           backgroundImage: `url(${massageImage})`,
           backgroundSize: 'cover',
           backgroundPosition: 'center',
-        }}>
+        }}
+        onClick={() => changeTreatment("Massage")}>
         <Box as="span" flex='1' textAlign='left' color="white">
         Massage
         </Box>
@@ -241,12 +283,26 @@ const TreatmentPage = () => {
       <Box fontSize="sm">
         Please choose a time:
       </Box>
-      <Select placeholder="Choose time">
+      <Select value={selectedTime}
+              onChange={(e) => setSelectedTime(e.target.value)} placeholder="Choose time">
         <option value="24 Aug 15:00">24 Aug 15:00</option>
         <option value="24 Aug 16:00">24 Aug 16:00</option>
         <option value="24 Aug 17:00">24 Aug 17:00</option>
         <option value="24 Aug 18:00">24 Aug 18:00</option>
       </Select>
+      <Box p={2}></Box>
+      <Button
+      w="fit-content"
+      p="7"
+      px="50px"
+      colorScheme="explore-blue"
+      borderRadius="10px"
+      m="0 auto"
+      mt="8"
+      fontWeight="bold"
+      fontSize="l"
+      onClick={navigateToConfirmation}
+      >Book</Button>
     </AccordionPanel>
   </AccordionItem>
   <AccordionItem>
@@ -255,7 +311,8 @@ const TreatmentPage = () => {
           backgroundImage: `url(${acupunctureImage})`,
           backgroundSize: 'cover',
           backgroundPosition: 'center',
-        }}>
+        }}
+        onClick={() => changeTreatment("Acupuncture")}>
         <Box as="span" flex='1' textAlign='left' color="white">
         Acupuncture
         </Box>
@@ -277,12 +334,26 @@ const TreatmentPage = () => {
       <Box fontSize="sm">
         Please choose a time:
       </Box>
-      <Select placeholder="Choose time">
+      <Select value={selectedTime}
+              onChange={(e) => setSelectedTime(e.target.value)} placeholder="Choose time">
         <option value="24 Aug 15:00">24 Aug 15:00</option>
         <option value="24 Aug 16:00">24 Aug 16:00</option>
         <option value="24 Aug 17:00">24 Aug 17:00</option>
         <option value="24 Aug 18:00">24 Aug 18:00</option>
       </Select>
+      <Box p={2}></Box>
+      <Button
+      w="fit-content"
+      p="7"
+      px="50px"
+      colorScheme="explore-blue"
+      borderRadius="10px"
+      m="0 auto"
+      mt="8"
+      fontWeight="bold"
+      fontSize="l"
+      onClick={navigateToConfirmation}
+      >Book</Button>
     </AccordionPanel>
   </AccordionItem>
         </Accordion>
