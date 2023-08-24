@@ -6,6 +6,9 @@ import useAccessToken from '../auth/useAccessToken';
 import { useGet } from '../hooks/useGet';
 import hydrotherapyImage from '../assets/images/hydrotherapy.png';
 import mudbathImage from '../assets/images/mudbath.png';
+import saunaImage from '../assets/images/sauna.png';
+import massageImage from '../assets/images/massage.png';
+import acupunctureImage from '../assets/images/acupuncture.png';
 
 const TreatmentPage = () => {
   const { accounts } = useMsal();
@@ -81,8 +84,12 @@ const TreatmentPage = () => {
         <Accordion>
         <AccordionItem>
     <h2>
-      <AccordionButton>
-        <Box as="span" flex='1' textAlign='left'>
+      <AccordionButton style={{
+          backgroundImage: `url(${saunaImage})`,
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+        }}>
+        <Box as="span" flex='1' textAlign='left' color="white">
         Sauna
         </Box>
         <AccordionIcon />
@@ -100,6 +107,9 @@ const TreatmentPage = () => {
       <Box p={1} fontWeight="bold">
       Where: Deck 11 - Wellness Deck
       </Box>
+      <Box fontSize="sm">
+        Please choose a time:
+      </Box>
       <Select value={selectedTime}
               onChange={(e) => setSelectedTime(e.target.value)} placeholder="Choose time">
         <option value="24 Aug 15:00">24 Aug 15:00</option>
@@ -116,7 +126,7 @@ const TreatmentPage = () => {
           backgroundSize: 'cover',
           backgroundPosition: 'center',
         }}>
-        <Box as="span" flex='1' textAlign='left'>
+        <Box as="span" flex='1' textAlign='left' color="white">
           Mudbath
         </Box>
         <AccordionIcon />
@@ -134,7 +144,9 @@ const TreatmentPage = () => {
       <Box p={1} fontWeight="bold">
       Where: Deck 12 - Oasis Wing
       </Box>
-
+      <Box fontSize="sm">
+        Please choose a time:
+      </Box>
       <Select placeholder="Choose time">
         <option value="24 Aug 15:00">24 Aug 15:00</option>
         <option value="24 Aug 16:00">24 Aug 16:00</option>
@@ -152,7 +164,7 @@ const TreatmentPage = () => {
           backgroundSize: 'cover',
           backgroundPosition: 'center',
         }}>
-        <Box as="span" flex='1' textAlign='left'>
+        <Box as="span" flex='1' textAlign='left' color="white">
         Hydrotherapy
         </Box>
         <AccordionIcon />
@@ -170,6 +182,9 @@ const TreatmentPage = () => {
       <Box p={1} fontWeight="bold">
       Where: Deck 12 - Oasis Wing
       </Box>
+      <Box fontSize="sm">
+        Please choose a time:
+      </Box>
       <Select placeholder="Choose time">
         <option value="24 Aug 15:00">24 Aug 15:00</option>
         <option value="24 Aug 15:45">24 Aug 15:45</option>
@@ -180,8 +195,12 @@ const TreatmentPage = () => {
   </AccordionItem>
   <AccordionItem>
     <h2>
-      <AccordionButton>
-        <Box as="span" flex='1' textAlign='left'>
+      <AccordionButton style={{
+          backgroundImage: `url(${massageImage})`,
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+        }}>
+        <Box as="span" flex='1' textAlign='left' color="white">
         Massage
         </Box>
         <AccordionIcon />
@@ -199,6 +218,9 @@ const TreatmentPage = () => {
       <Box p={1} fontWeight="bold">
       Where: Deck 11 - Wellness Deck
       </Box>
+      <Box fontSize="sm">
+        Please choose a time:
+      </Box>
       <Select placeholder="Choose time">
         <option value="24 Aug 15:00">24 Aug 15:00</option>
         <option value="24 Aug 16:00">24 Aug 16:00</option>
@@ -209,8 +231,12 @@ const TreatmentPage = () => {
   </AccordionItem>
   <AccordionItem>
     <h2>
-      <AccordionButton>
-        <Box as="span" flex='1' textAlign='left'>
+      <AccordionButton style={{
+          backgroundImage: `url(${acupunctureImage})`,
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+        }}>
+        <Box as="span" flex='1' textAlign='left' color="white">
         Acupuncture
         </Box>
         <AccordionIcon />
@@ -227,6 +253,9 @@ const TreatmentPage = () => {
       </Box>
       <Box p={1} fontWeight="bold">
       Where: Deck 7 - Tranquility Plaza
+      </Box>
+      <Box fontSize="sm">
+        Please choose a time:
       </Box>
       <Select placeholder="Choose time">
         <option value="24 Aug 15:00">24 Aug 15:00</option>
