@@ -3,6 +3,8 @@ import Home from "./pages/Home";
 import RestaurantHome from "./pages/RestaurantHome";
 import RestaurantOverview from "./pages/RestaurantOverview";
 import MyBookings from "./pages/MyBookings";
+import ReserveTable from "./pages/ReserveTable";
+
 
 
 const App = () => {
@@ -11,9 +13,10 @@ const App = () => {
     <Routes>
       <Route path="/" element={<Home />}>
       </Route>
-      <Route path="/restaurant" element={<RestaurantHome />}/>
       <Route path="/mybookings" element={<MyBookings />}/>
+      <Route path="/restaurant/1" element={<RestaurantHome />}/>
       <Route path="/restaurants" element={<RestaurantOverview />}/>
+      <Route path="/restaurant/1/reserve" element={<ReserveTable />}/>
 
     </Routes>
   )

@@ -85,7 +85,7 @@ const Home = () => {
               'Copy access token to clipboard'
             )}
         </Box>
-        <Link as={ReactLink} to="/restaurant"><Button variant='solid' colorScheme='blue'> Restaurant</Button></Link>
+        <Link as={ReactLink} to="/restaurant/1"><Button variant='solid' colorScheme='blue'> Restaurant</Button></Link>
       </Box>
     </Flex>
   );
