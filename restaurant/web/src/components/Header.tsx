@@ -64,6 +64,12 @@ const SimpleNav = () => {
               display={{ base: 'none', md: 'flex' }}
             >
               <Text>
+              <ChakraLink as={ReactRouterLink} to="/">
+                  Home
+                </ChakraLink>
+                <ChakraLink as={ReactRouterLink} to="/mybookings">
+                  My Bookings
+                </ChakraLink>
                 <ChakraLink as={ReactRouterLink} to="/restaurants">
                   Restaurants
                 </ChakraLink>
@@ -87,7 +93,9 @@ const SimpleNav = () => {
                 />
               </MenuButton>
               <MenuList>
-                <MenuItem>My Bookings</MenuItem>
+                <MenuItem><ChakraLink as={ReactRouterLink} to="/mybookings">
+                    My Bookings
+                  </ChakraLink></MenuItem>
                 <MenuItem>Spa</MenuItem>
                 <MenuItem>
                   <ChakraLink as={ReactRouterLink} to="/restaurants">
